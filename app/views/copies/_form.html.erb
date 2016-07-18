@@ -1,0 +1,52 @@
+<div class="col-md-6">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Editar Item de <%= @product.nombre%></h3>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+    <%= form_for([@product, @copy]) do |f| %>
+      <% if @copy.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@copy.errors.count, "error") %> prohibited this copy from being saved:</h2>
+
+          <ul>
+          <% @copy.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label :nro_serie, "Nro de Serie:", class: "control-label" %>
+          <%= f.text_field :nro_serie, class: "form-control", placeholder: "Ejemplo: NBG123456" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :precio_compra, "Precio de Compra (en U$S):", class: "control-label" %>
+          <%= f.number_field :precio_compra, class: "form-control", placeholder: "540.95", step: "any" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :lugar, "Lugar:", class: "control-label" %>
+          <%= f.select :lugar, ['Departamento', 'Casa de Dario', 'Casa de Maxi','Deposito'], {}, class: "form-control select2 select2-hidden-accessible" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :packaging, "Packaging:", class: "control-label" %>
+          <%= f.select :lugar, ['Original', 'Sin Caja', 'Caja Original Abierta','Generica'], {}, class: "form-control select2 select2-hidden-accessible" %>
+          </select>
+        </div>
+        <div class="form-group">
+          <%= f.label :estado, "Estado:", class: "control-label" %>
+          <%= f.select :estado, ['Nuevo', 'Open-Box', 'A-Refurb','D-Refurb', 'Fallado'], {}, class: "form-control select2 select2-hidden-accessible" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :descripcion, "Descripcion:", class: "control-label" %>
+          <%= f.text_area :descripcion, cols: 20, rows: 4, class: "form-control", placeholder: "Añadir descripcion (opcional)" %>
+        </div>
+      </div><!-- /.box-body -->
+
+      <div class="box-footer">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+      <% end %>
+  </div>
+</div>

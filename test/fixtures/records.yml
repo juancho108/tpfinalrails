@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cuenta_ml: MyString
+  estado: MyString
+  orden: 1
+
+two:
+  cuenta_ml: MyString
+  estado: MyString
+  orden: 1

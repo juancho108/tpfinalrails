@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LteTemplate</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>DigitalSTEP</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
-</head>
-<body class="skin-blue sidebar-mini">
+</head> 
+<body <% if user_signed_in? %>class="skin-blue sidebar-mini" <% else %> class="skin-blue sidebar-mini sidebar-collapse" <% end %> >
   <div class="wrapper">
     <%= render partial: 'shared/header' %>
-    <%= render partial: 'shared/sidebar' %>
-
+    <% if user_signed_in? %>
+      <%= render partial: 'shared/sidebar' %>
+    <% end %>
     <div class="content-wrapper">
       <section class="content">
+        <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+
         <%= yield %>
       </section>
     </div>

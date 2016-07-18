@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <% if @origin_sale.persisted? %>
+          <%= render 'title_edit' %>
+        <% else %>
+          <%= render 'title_new' %>
+        <% end %>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <%= form_for(@origin_sale) do |f| %>
+          <% if @origin_sale.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@origin_sale.errors.count, "error") %> prohibited this origin_sale from being saved:</h2>
+
+              <ul>
+              <% @origin_sale.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <!-- text input -->
+          <div class="form-group">
+            <%= f.label :nombre, "Nombre:", class: "control-label" %>
+            <%= f.text_field :nombre, class: "form-control", placeholder: "Ingrese nombre" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :monto_bruto, "Monto Bruto:", class: "control-label" %>
+            <%= f.text_field :monto_bruto, class: "form-control", placeholder: "Ingrese Monto Bruto" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :monto_neto, "Monto Neto:", class: "control-label" %>
+            <%= f.text_field :monto_neto, class: "form-control", placeholder: "Ingrese Monto Neto" %>
+          </div>
+          <div class="form-group">  
+            <%= f.label :tipo, "Es un Tipo Cuenta MERCADOLIBRE?", class: "control-label" %>
+            <%= f.check_box :tipo, class: "checkbox" %>
+
+          </div>
+      </div><!-- /.box-body -->
+      <div class="box-footer">
+        <%= f.submit 'Enviar', class: "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

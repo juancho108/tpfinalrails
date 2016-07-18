@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Copies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lugar</th>
+      <th>Precio compra</th>
+      <th>Packaging</th>
+      <th>Estado del producto</th>
+      <th>Estado</th>
+      <th>Nro serie</th>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @copies.each do |copy| %>
+      <tr>
+        <td><%= copy.lugar %></td>
+        <td><%= copy.precio_compra %></td>
+        <td><%= copy.packaging %></td>
+        <td><%= copy.estado_del_producto %></td>
+        <td><%= copy.estado %></td>
+        <td><%= copy.nro_serie %></td>
+        <td><%= copy.descripcion %></td>
+        <td><%= link_to 'Show', copy %></td>
+        <td><%= link_to 'Edit', edit_copy_path(copy) %></td>
+        <td><%= link_to 'Destroy', copy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Copy', new_copy_path %>

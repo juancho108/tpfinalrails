@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Operacion:</strong>
+  <%= @movement.operacion %>
+</p>
+
+<p>
+  <strong>Tipo operacion:</strong>
+  <%= @movement.tipo_operacion %>
+</p>
+
+<p>
+  <strong>Origen:</strong>
+  <%= @movement.origen.nombre %>
+</p>
+
+<p>
+  <strong>Persona:</strong>
+  <%= @movement.persona %>
+</p>
+
+<p>
+  <strong>Monto neto:</strong>
+  <%= @movement.monto_neto %>
+</p>
+
+<p>
+  <strong>Fecha operacion:</strong>
+  <%= @movement.fecha_operacion %>
+</p>
+
+<p>
+  <strong>Detalles adicionales:</strong>
+  <%= @movement.detalles_adicionales %>
+</p>
+
+<%= link_to 'Edit', edit_movement_path(@movement) %> |
+<%= link_to 'Back', movements_path %>

@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+
+<head>
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  </head>
+
+<div class="box">
+  <div class="box-header">
+    <div class="col-sm-8">
+      <h3 class="box-title">Listado de Movimientos</h3>
+    </div>
+    <div class="col-sm-4">
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='origin_sales/new' ">Nuevo Origen de Venta</button>
+    </div>
+    
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 229px;">Nombre</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Monto Bruto: activate to sort column ascending" style="width: 249px;">Monto Bruto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Monto Neto: activate to sort column ascending" style="width: 249px;">Monto Neto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @origin_sales.each do |origin_sale| %>
+              <tr role="row" class="even">
+                <td class="sorting_1"><%= origin_sale.nombre %></td>
+                <td><%= origin_sale.monto_bruto %></td>
+                <td><%= origin_sale.monto_neto %></td>
+                <td><%= link_to 'Show', origin_sale %>
+                <%= link_to 'Edit', edit_origin_sale_path(origin_sale) %>
+                <%= link_to 'Destroy', origin_sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1">Nombre</th>
+                <th rowspan="1" colspan="1">Monto Bruto</th>
+                <th rowspan="1" colspan="1">Monto Neto</th>
+                <th rowspan="1" colspan="1">Acciones</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
+
+
+<br>
+

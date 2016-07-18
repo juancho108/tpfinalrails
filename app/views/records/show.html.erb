@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cuenta ml:</strong>
+  <%= @record.cuenta_ml.nombre %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @record.estado %>
+</p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @record.orden %>
+</p>
+
+<%= link_to 'Edit', edit_record_path(@record) %> |
+<%= link_to 'Back', records_path %>

@@ -1,0 +1,103 @@
+<head>
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  </head>
+
+<div class="box">
+  <div class="box-header">
+    <div class="col-sm-8">
+      <h3 class="box-title">Listado de Stock de <%= @product.nombre %> (<%= @copies.select{|c| c.estado_del_producto != "Vendido"}.count %>) </h3>
+    </div>
+    <div class="col-sm-4">
+      <% if @product.tipo_stock == 'Stock Simple' %>
+        <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_simple" '>Cargar Stock Simple</button>
+      <% else %>
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_complejo" '>Cargar Stock Complejo</button>
+      <% end -%>
+    </div>
+    
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Lugar: activate to sort column descending" style="width: 229px;">Lugar</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Precio de Compra: activate to sort column ascending" style="width: 281px;">Precio de Compra</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Packaging: activate to sort column ascending" style="width: 249px;">Packaging</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Estado del Producto: activate to sort column ascending" style="width: 249px;">Estado del Producto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 249px;">Estado</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Nro de Serie: activate to sort column ascending" style="width: 249px;">Nro de Serie</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Descripcion: activate to sort column ascending" style="width: 249px;">Descripcion</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Vender: activate to sort column ascending" style="width: 249px;">VENDER</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @copies.each do |copy| %>
+              <tr role="row" class="even">
+                <td class="sorting_1"><%= copy.lugar %></td>
+                <td><%= copy.precio_compra %></td>
+                <td><%= copy.packaging %></td>
+                <td><%= copy.estado_del_producto %></td>
+                <td><%= copy.estado %></td>
+                <td><%= copy.nro_serie %></td>
+                <td><%= copy.descripcion %></td>
+                <td>
+                <% if copy.estado_del_producto == "En Stock" %>
+                  <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/products/<%=@product.id%>/copies/<%=copy.id%>/sale" '>VENDER</button>
+                <%end%>
+                </td>
+                <td><%= link_to 'Show', product_copy_path(copy.producto, copy) %>
+                    <%= link_to 'Edit', edit_product_copy_path(copy.producto, copy) %>
+                    <%= link_to 'Destroy', product_copy_path(copy.producto, copy), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1">Lugar</th>
+                <th rowspan="1" colspan="1">Precio de Compra</th>
+                <th rowspan="1" colspan="1">Packaging</th>
+                <th rowspan="1" colspan="1">Estado del Producto</th>
+                <th rowspan="1" colspan="1">Estado</th>    
+                <th rowspan="1" colspan="1">Nro de Serie</th> 
+                <th rowspan="1" colspan="1">Descripcion</th>  
+                <th rowspan="1" colspan="1">Vender</th>           
+                <th rowspan="1" colspan="1">Acciones</th>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="row">
+            <div class="col-sm-2">
+             <button class="btn btn-block btn-primary" onclick="location.href='/products' ">Volver</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>

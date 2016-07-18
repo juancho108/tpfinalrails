@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lugar:</strong>
+  <%= @copy.lugar %>
+</p>
+
+<p>
+  <strong>Precio compra:</strong>
+  <%= @copy.precio_compra %>
+</p>
+
+<p>
+  <strong>Packaging:</strong>
+  <%= @copy.packaging %>
+</p>
+
+<p>
+  <strong>Estado del producto:</strong>
+  <%= @copy.estado_del_producto %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @copy.estado %>
+</p>
+
+<p>
+  <strong>Nro serie:</strong>
+  <%= @copy.nro_serie %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @copy.descripcion %>
+</p>
+
+<%= link_to 'Edit', edit_product_copy_path(@product, @copy) %> |
+<%= link_to 'Back', product_copies_path(@product) %>

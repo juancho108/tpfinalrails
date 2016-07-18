@@ -1,0 +1,82 @@
+<head>
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+</head>
+
+<div class="box">
+  <div class="box-header">
+    <div class="col-sm-8">
+      <h3 class="box-title">Listado de Movimientos para <%=@sale.copia.producto.nombre%></h3>
+    </div>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Operacion: activate to sort column descending" style="width: 229px;">Operacion</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Tipo de Operacion: activate to sort column descending" style="width: 229px;">Tipo de Operacion</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Monto Neto: activate to sort column descending" style="width: 229px;">Monto Neto</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Forma de Pago/Origen: activate to sort column descending" style="width: 229px;">Forma de Pago/Origen</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @sale.movements.each do |movement| %>
+              <tr role="row" class="even">
+                <td class="sorting_1"><%= movement.operacion %></td>
+                <td><%= movement.tipo_operacion %></td>
+                <td><%= movement.monto_neto rescue '' %></td>
+                <td><%= movement.origen.nombre rescue '' %></td>
+                <td>
+                    <button class="btn btn-block btn-warning btn-xs" type="button" onclick='location.href="/movements/<%=movement.id%>/edit" '>EDITAR</button>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1">Operacion</th>
+                <th rowspan="1" colspan="1">Tipo de Operacion</th>
+                <th rowspan="1" colspan="1">Monto Neto</th>
+                <th rowspan="1" colspan="1">Forma de Pago/Origen</th>
+                <th rowspan="1" colspan="1">Acciones</th>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="row">
+            <div class="col-sm-2">
+             <button class="btn btn-block btn-primary" onclick="location.href='/sales' ">Volver</button>
+            </div>
+            <div class="col-sm-2 col-md-offset-3">
+             <button class="btn btn-block btn-success" onclick="location.href='/sales/<%=@sale.id%>/close_sale' ">CERRAR VENTA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>
+<script>
+  $(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "aaSorting": [[ 0, "desc" ]]
+    });
+  });
+</script>

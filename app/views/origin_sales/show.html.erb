@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @origin_sale.nombre %>
+</p>
+
+<p>
+  <strong>Monto bruto:</strong>
+  <%= @origin_sale.monto_bruto %>
+</p>
+
+<p>
+  <strong>Monto neto:</strong>
+  <%= @origin_sale.monto_neto %>
+</p>
+
+<%= link_to 'Edit', edit_origin_sale_path(@origin_sale) %> |
+<%= link_to 'Back', origin_sales_path %>

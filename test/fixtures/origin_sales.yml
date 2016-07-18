@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  monto_bruto: 1.5
+  monto_neto: 1.5
+
+two:
+  nombre: MyString
+  monto_bruto: 1.5
+  monto_neto: 1.5

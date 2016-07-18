@@ -1,0 +1,61 @@
+<div class="col-md-6">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Nueva Venta para <%= @sale.copia.producto.nombre %></h3>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+
+    <%= form_for(@sale) do |f| %>
+      <% if @sale.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+          <ul>
+          <% @sale.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label :precio_bruto, "Precio Bruto (venta):", class: "control-label" %>
+          <%= f.number_field :precio_bruto, class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.label :forma_de_pago_id, "Forma de Pago:", class: "control-label" %>
+          <%= f.collection_select :forma_de_pago_id, Finance.all, :id, :nombre, options={selected: @sale.forma_de_pago_id}, {class: "form-control select2 select2-hidden-accessible "} %>
+        </div>
+        <div class="form-group">
+          <%= f.label :origin_sale_id, "Origen de Venta:", class: "control-label" %>
+          <%= f.collection_select :origin_sale_id, OriginSale.all, :id, :nombre, options={selected: @sale.origin_sale_id}, {class: "form-control select2 select2-hidden-accessible "} %>
+        </div>
+        <div class="form-group">
+          <label>Estado de la venta:</label>
+          <%= f.select :estado, ['Concretada', 'Pendiente', 'Cancelada'], {}, class: "form-control select2 select2-hidden-accessible" %>
+
+        </div>
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Datos del Cliente</h3>
+          </div>
+          <div class="form-group">
+            <label>Nombre:</label>
+            <input type="string" min="0" class="form-control" placeholder="Ejemplo: Sergi Gomez Bianchi" name="client[nombre]" value="<%= @client.nombre %>">
+          </div>
+          <div class="form-group">
+            <label>Mail:</label>
+            <input type="email" min="0" class="form-control" placeholder="juan@gmail.com" name="client[mail]" value="<%= @client.mail %>">
+          </div>
+          <div class="form-group">
+            <label>Detalle Adicional:</label>
+            <input type="text" min="0" class="form-control" placeholder="(Opcional)" name="client[detalle_adicional]" value="<%= @client.detalle_adicional %>">
+          </div>
+        </div>
+      </div><!-- /.box-body -->
+
+      <div class="box-footer">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+      <% end %>
+  </div>
+</div>

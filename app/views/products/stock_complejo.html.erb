@@ -1,0 +1,63 @@
+<div class="row">  
+  <div class="col-md-6">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Agregar stock para <%= @product.nombre %></h3>
+      </div><!-- /.box-header -->
+      <!-- form start -->
+      <%= form_tag create_stock_complejo_product_path do |f| %>
+        <div class="box-body">
+          <div class="form-group">
+            <label>Nro de Serie:</label>
+            <input type="text" min="0" class="form-control" placeholder="Ejemplo: NCS356834" name="nro_serie">
+          </div>
+          <div class="form-group">
+            <label>Precio de Compra (en Dolares x unidad):</label>
+            <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200" name="precio_compra">
+          </div>
+          <div class="form-group">
+            <label>Lugar:</label>
+            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="lugar">
+              <option selected="selected">Casa de Dario</option>
+              <option>Casa de Maxi</option>
+              <option>Departamento</option>
+              <option>Deposito</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Packaging:</label>
+            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="packaging">
+              <option selected="selected">Original</option>
+              <option>Sin Caja</option>
+              <option>Caja Original Abierta</option>
+              <option>Generica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estado:</label>
+            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="estado">
+              <option selected="selected">Nuevo</option>
+              <option>Open-Box</option>
+              <option>A-Refurb</option>
+              <option>D-Refurb</option>
+              <option>Fallado</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Descripcion:</label>
+            <textarea class="form-control" rows="3" placeholder="Añadir descripcion (opcional)" name="descripcionjajaaj "></textarea>
+          </div>
+        </div><!-- /.box-body -->
+
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>  
+<div class="row">
+  <div class="col-sm-2 col-md-offset-4">
+   <button class="btn btn-block btn-primary" type="button "onclick="location.href='/products/<%=@product.id%>/copies' ">Volver</button>
+  </div>
+</div>

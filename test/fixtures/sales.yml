@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  precio_bruto: 1.5
+  precio_neto: 1.5
+  forma_de_pago: MyString
+  quien_cargo: MyString
+  ganancia: 1.5
+
+two:
+  precio_bruto: 1.5
+  precio_neto: 1.5
+  forma_de_pago: MyString
+  quien_cargo: MyString
+  ganancia: 1.5

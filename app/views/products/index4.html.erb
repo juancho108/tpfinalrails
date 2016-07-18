@@ -1,0 +1,81 @@
+<!-- DataTables -->
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+<p id="notice"><%= notice %></p>
+
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Listado de Productos</h3>
+  </div><!-- /.box-header -->
+  <div class="box-body">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="dataTables_length" id="example1_length">
+        <label>Show 
+        <select name="example1_length" aria-controls="example1" class="form-control input-sm">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select> entries
+        </label>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div id="example1_filter" class="dataTables_filter">
+      <label>Search:
+        <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1">
+      </label>
+    </div>
+    <di
+    <table id="example1" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo stock</th>
+          <th>Instruccion general</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.nombre %></td>
+            <td><%= product.tipo_stock %></td>
+            <td><%= product.instruccion_general %></td>
+            <td><%= link_to 'Show', product %></td>
+            <td><%= link_to 'Edit', edit_product_path(product) %></td>
+            <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo stock</th>
+          <th>Instruccion general</th>
+          <th colspan="3"></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->
+    <script>
+      $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+      });
+    </script>
+<br>
+
+<%= link_to 'New Product', new_product_path %>

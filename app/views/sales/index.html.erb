@@ -1,0 +1,100 @@
+<head>
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  </head>
+
+<div class="box">
+  <div class="box-header">
+    <div class="col-sm-8">
+      <h3 class="box-title">Listado de Ventas</h3>
+    </div>
+    
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Fecha: activate to sort column descending" style="width: 229px;">Fecha</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Producto: activate to sort column descending" style="width: 229px;">Producto</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Precio Bruto: activate to sort column descending" style="width: 229px;">Precio Bruto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Precio Neto: activate to sort column ascending" style="width: 281px;">Precio Neto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Forma de Pago: activate to sort column ascending" style="width: 249px;">Forma de Pago</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Quien cargo: activate to sort column ascending" style="width: 249px;">Quien Cargo</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 249px;">Estado</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Ganancia: activate to sort column ascending" style="width: 249px;">Ganancia</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @sales.each do |sale| %>
+              <tr role="row" class="even">
+                <td class="sorting_1"><%= sale.updated_at.to_formatted_s(:long) %></td>
+                <td><%= sale.copia.producto.nombre %></td>
+                <td><%= sale.precio_bruto %></td>
+                <td><%= sale.precio_neto %></td>
+                <td>
+                  <%if sale.movements.count > 1%>
+                    <p>"Varias"</p>
+                  <% else %>
+                    <%= sale.forma_de_pago.nombre rescue '' %></td>
+                  <% end %>
+                <td><%= sale.usuario.nombre rescue '' %></td>
+                <td><%= sale.estado %>
+                    <%if sale.estado == "Pago Parcial"%>
+                      <button class="btn btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/movements" '>Ver Pagos</button>
+                    <%end%>
+                </td>
+                <td><%= sale.ganancia.round(2) %></td>
+                <td>
+                  <%= link_to 'Show', sale %><%= link_to 'Edit', edit_sale_path(sale) %><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Esta Seguro que quiere eliminar la Venta?' } %>
+                  <% if sale.estado == "Pendiente" %>
+                    <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/confirm_sale" '>VENDER</button>
+                    <button class="btn btn-block btn-danger btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/cancel_sale" '>CANCELAR</button>
+                  <%end%>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1">Fecha</th>
+                <th rowspan="1" colspan="1">Producto</th>
+                <th rowspan="1" colspan="1">Precio Bruto</th>
+                <th rowspan="1" colspan="1">Precio Neto</th>
+                <th rowspan="1" colspan="1">Forma de Pago</th>
+                <th rowspan="1" colspan="1">Quien Cargo</th>
+                <th rowspan="1" colspan="1">Estado</th>
+                <th rowspan="1" colspan="1">Ganancia</th>                
+                <th rowspan="1" colspan="1">Acciones</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>
+<script>
+  $(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "aaSorting": [[ 0, "desc" ]]
+    });
+  });
+</script>

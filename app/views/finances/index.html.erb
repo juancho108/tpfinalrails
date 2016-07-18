@@ -1,0 +1,70 @@
+<head>
+<%= stylesheet_link_tag 'dataTables.bootstrap.css' %>
+<%= javascript_include_tag 'jquery.dataTables.min.js'%>
+<%= javascript_include_tag 'dataTables.bootstrap.min.js'%>
+<%= javascript_include_tag 'jquery.slimscroll.min.js'%>
+<%= javascript_include_tag 'fastclick.min.js'%>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  </head>
+
+<div class="box">
+  <div class="box-header">
+    <div class="col-sm-8">
+      <h3 class="box-title">Listado de Finanzas</h3>
+    </div>
+    <div class="col-sm-4">
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='finances/new' ">Nueva Caja</button>
+    </div>
+    
+  </div><!-- /.box-header -->
+  <div class="box-body">
+    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+              <tr role="row">
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 229px;">Nombre</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Dinero: activate to sort column descending" style="width: 229px;">Dinero</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @finances.each do |finance| %>
+              <tr role="row" class="even">
+                <td class="sorting_1"><%= finance.nombre %></td>
+                <td><%= finance.dinero %></td>
+                <td><%= link_to 'Show', finance %><%= link_to 'Edit', edit_finance_path(finance) %><%= link_to 'Destroy', finance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th rowspan="1" colspan="1">Nombre</th>
+                <th rowspan="1" colspan="1">Dinero</th>
+                <th rowspan="1" colspan="1">Acciones</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.box-body -->
+</div>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>

@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <% if @finance.persisted? %>
+          <%= render 'title_edit' %>
+        <% else %>
+          <%= render 'title_new' %>
+        <% end %>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <%= form_for(@finance) do |f| %>
+          <% if @finance.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@finance.errors.count, "error") %> prohibited this finance from being saved:</h2>
+
+              <ul>
+              <% @finance.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <!-- text input -->
+          <div class="form-group">
+            <%= f.label :nombre, "Nombre:", class: "control-label" %>
+            <%= f.text_field :nombre, class: "form-control", placeholder: "Ingrese nuevo nombre" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :dinero, "Dinero:", class: "control-label" %>
+            <%= f.number_field :dinero, class: "form-control", placeholder: "Ingrese monto de dinero, ej: 4000.50" %>
+          </div>
+      </div><!-- /.box-body -->
+      <div class="box-footer">
+        <%= f.submit 'Enviar', class: "btn btn-primary" %>
+      </div>
+       <% end %>
+    </div>
+  </div>  
+</div>
