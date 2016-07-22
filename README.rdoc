@@ -53,6 +53,8 @@ mp = 4.95
 ==============================
 Nuevas Tareas:
 
+-- columna nueva en index-product para mostrar el hisorial de cada uno.
+
 -revisar si cambia de cancelada a concretada si el producto ya no está vendido
 
 -Arreglar Tema del dolar con clase configuracion que incluirá porcentajesde ML etc...
@@ -92,11 +94,17 @@ orden: integer
 " LAS VENTAS TIENEN CANTIDAD DE PAGOS QUE GENERARÁN LOS MOVIMIENTOS NECESARIOS QUE SE IRÁN COMPLETANDO LUEGO"
 arreglar los movementes, porque si son VENTAS, deben hacer ciertas cosas como los descuentos etc.
 
+JAVASCRIPT - SI SELECCIONA PAGO PARCIAL APARECEN LOS IMPUT CON LOS VALORES O BIEN SI SELECCIONA LA CANTIDAD DE PAGOS
+SE SELECCIONA AUTOMATICAMENTE EL ESTADO "PAGO PARCIAL"
 
 
 CONSULTAR A FRAN: 
 
+1) como itero y me quedo con los precios_netos que no son nil para que cuando todos esten hechos, pueda mostrar el boton CERRAR VENTA en movements.html.erb?
 
+2) proceso en background para guardar en la BD el valor dolar de la api
+
+3)github problem
 
 CONSULTAR A DARIO:
 

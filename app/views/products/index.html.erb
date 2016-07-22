@@ -16,7 +16,7 @@
       <h3 class="box-title">Listado de Productos</h3>
     </div>
     <div class="col-sm-4">
-      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='products/new' ">Nuevo Producto</button>
+      <button class="btn btn-block bg-navy btn-lg" type="button" onclick="location.href='products/new' ">Nuevo Producto</button>
     </div>
     
   </div><!-- /.box-header -->
@@ -55,13 +55,13 @@
                 </td>
                 <td>
                   <% if product.tipo_stock == 'Stock Simple' %>
-                    <button class="btn  btn-info" type="button" onclick='location.href="/products/<%=product.id%>/stock_simple" '>Cargar Stock Simple</button>
+                    <button class="btn  btn-success" type="button" onclick='location.href="/products/<%=product.id%>/stock_simple" '>Cargar Stock Simple</button>
                   <% else %>
-                  <button class="btn  btn-primary" type="button" onclick='location.href="/products/<%=product.id%>/stock_complejo" '>Cargar Stock Complejo</button>
+                  <button class="btn bg-olive" type="button" onclick='location.href="/products/<%=product.id%>/stock_complejo" '>Cargar Stock Complejo</button>
                   <% end -%>
                 </td>
                 <td>
-                  <button class="btn  btn-warning" type="button" onclick='location.href="/products/<%=product.id%>/copies" '>Ver Stock</button>
+                  <button class="btn  btn-primary" type="button" onclick='location.href="/products/<%=product.id%>/copies" '>Ver Stock</button>
                 </td>
                 <td><%= link_to 'Show', product %><%= link_to 'Edit', edit_product_path(product) %><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>

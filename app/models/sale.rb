@@ -44,7 +44,8 @@ class Sale < ActiveRecord::Base
     sale.update estado: "Cancelada"
     sale.copia.update estado_del_producto: "En Stock"
     OriginSale.actualizarOrigenDeLaVenta( (sale.precio_bruto* -1), (sale.precio_neto* -1), sale.origin_sale_id)
-
+    #verificar
+    Sale.revertirFinance(sale)
   end
 
   def self.accionesVentaConcretada sale, user
@@ -102,7 +103,7 @@ class Sale < ActiveRecord::Base
   def self.revertirFinance sale
     #descuenta de la CAJA correspondiente el valor sumado anteriormente
     sale.movements.each do |m|
-      Finance.actualizarCaja(m.origen_id, (m.precio_neto* -1))
+      Finance.actualizarCaja(m.origen_id, (m.monto_neto* -1))
     end
   end
 

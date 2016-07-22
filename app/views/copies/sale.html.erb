@@ -1,3 +1,32 @@
+<script type="text/javascript">
+  function sellar_estado(){
+    var cantidad_de_pagos = document.getElementById('cantidad_de_pagos')
+    var estado = document.getElementById('estado')
+    var origenes_de_venta = document.getElementById('origin_sale_id').getElementsByTagName("option")
+
+    
+    if (cantidad_de_pagos.value != 1){
+      estado.value = "Pago Parcial"
+      estado.disabled = true
+      for (var i = 0; i < origenes_de_venta.length ; i++) {
+        if (origenes_de_venta[i].text.includes("ML")){ 
+          origenes_de_venta[i].disabled = true}
+        if (origenes_de_venta[i].text.includes("DS")){
+          origenes_de_venta[i].selected = true
+        }
+      }
+      origenes_de_venta
+    }else{
+      estado.disabled = false
+      estado.value = "Concretada"
+      for (var i = 0; i < origenes_de_venta.length ; i++) {
+        if (origenes_de_venta[i].text.includes("ML")){
+         origenes_de_venta[i].disabled = false}
+      }
+    }
+  }
+
+</script>
 <div class="row">
   <div class="col-md-6">
     <div class="box box-success">
@@ -8,12 +37,21 @@
         <%= form_tag create_sale_product_copy_path do |f| %>
                 <div class="box-body">
                   <div class="form-group">
+                    <label>Cantidad de Pagos:</label>
+                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="cantidad_de_pagos" id="cantidad_de_pagos" onchange="sellar_estado()">
+                      <option selected="selected" value="1">1</option>
+                      <% (2..6).each do |i| %>
+                      <option value="<%=i%>"><%=i%></option>  
+                      <%end%>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label>Precio Bruto (en Pesos):</label>
                     <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200.99" name="precio_bruto">
                   </div>
                   <div class="form-group">
                     <label>Forma de Pago:</label>
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="forma_de_pago_id">
+                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="forma_de_pago_id" >
                       <option selected="selected"></option>
                       <% Finance.all.each do |f| %>
                         <option value="<%=f.id%>"><%=f.nombre%></option>  
@@ -22,7 +60,7 @@
                   </div>
                   <div class="form-group">
                     <label>Origen de Venta</label>
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="origin_sale_id">
+                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="origin_sale_id" id="origin_sale_id">
                       <option selected="selected"></option>
                       <% OriginSale.all.each do |os| %>
                         <option value="<%=os.id%>"><%=os.nombre%></option>  
@@ -31,19 +69,10 @@
                   </div>
                   <div class="form-group">
                     <label>Estado de la venta:</label>
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="estado">
+                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="estado" id="estado">
                       <option selected="selected">Concretada</option>
                       <option>Pendiente</option>
                       <option>Pago Parcial</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Cantidad de Pagos:</label>
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="cantidad_de_pagos">
-                      <option selected="selected" value="1">1</option>
-                      <% (2..6).each do |i| %>
-                      <option value="<%=i%>"><%=i%></option>  
-                      <%end%>
                     </select>
                   </div>
                   <div class="box box-primary">

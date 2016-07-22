@@ -47,6 +47,9 @@
                   <%= link_to user, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="glyphicon glyphicon-file"></i>
                   <% end %>
+                  <button type="button" class="btn btn-primary" title="Ver" onclick="location.href='/admin/users/<%user.id%>' ">
+                    <i class="glyphicon glyphicon-file"></i>
+                  </button>
                   <%= link_to edit_user_path(user), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="glyphicon glyphicon-edit"></i>
                   <% end %>
