@@ -16,7 +16,8 @@
       <h3 class="box-title">Listado de Movimientos</h3>
     </div>
     <div class="col-sm-4">
-      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='movements/new' ">Nuevo Movimiento</button>
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='movements/new' "><span class="glyphicon glyphicon-plus
+"></span> Nuevo Movimiento</button>
     </div>
     
   </div><!-- /.box-header -->
@@ -50,7 +51,17 @@
                 <td><%= movement.persona %></td>
                 <td><%= movement.monto_neto %></td>
                 <td><%= movement.detalles_adicionales %></td>
-                <td><%= link_to 'Show', movement %><%= link_to 'Edit', edit_movement_path(movement) %><%= link_to 'Destroy', movement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td>
+                  <%= link_to movement, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
+                    <i class="fa fa-file"></i>
+                  <% end %>
+                  <%= link_to edit_movement_path(movement), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to movement, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
             </tbody>

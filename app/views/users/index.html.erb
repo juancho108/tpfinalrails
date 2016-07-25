@@ -45,16 +45,13 @@
                 <td class="sorting_1">"SI O NO"</td>
                 <td>
                   <%= link_to user, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
-                    <i class="glyphicon glyphicon-file"></i>
+                    <i class="fa fa-file"></i>
                   <% end %>
-                  <button type="button" class="btn btn-primary" title="Ver" onclick="location.href='/admin/users/<%user.id%>' ">
-                    <i class="glyphicon glyphicon-file"></i>
-                  </button>
                   <%= link_to edit_user_path(user), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
-                    <i class="glyphicon glyphicon-edit"></i>
+                    <i class="fa fa-edit"></i>
                   <% end %>
                   <%= link_to user, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
-                    <i class="glyphicon glyphicon-remove"></i>
+                    <i class="fa fa-trash"></i>
                   <% end %>
                 </td>
               </tr>

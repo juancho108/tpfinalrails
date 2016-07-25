@@ -16,7 +16,7 @@
       <h3 class="box-title">Listado de Productos</h3>
     </div>
     <div class="col-sm-4">
-      <button class="btn btn-block bg-navy btn-lg" type="button" onclick="location.href='products/new' ">Nuevo Producto</button>
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='products/new' "><span class="glyphicon glyphicon-plus"></span> Nuevo Producto</button>
     </div>
     
   </div><!-- /.box-header -->
@@ -63,7 +63,17 @@
                 <td>
                   <button class="btn  btn-primary" type="button" onclick='location.href="/products/<%=product.id%>/copies" '>Ver Stock</button>
                 </td>
-                <td><%= link_to 'Show', product %><%= link_to 'Edit', edit_product_path(product) %><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td>
+                  <%= link_to product, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
+                    <i class="fa fa-file"></i>
+                  <% end %>
+                  <%= link_to edit_product_path(product), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to product, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                    <i class="fa  fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
             </tbody>

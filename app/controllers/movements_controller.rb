@@ -55,6 +55,9 @@ class MovementsController < ApplicationController
     respond_to do |format|
       
       if @movement.update(movement_params.merge(persona: current_user.nombre+" "+current_user.apellido))
+        if @movement.tipo_operacion == "Venta"
+          format.html { redirect_to movements_sale_path(@movement.sale_id), notice: 'Movimiento modificado con exito.' }
+        end
         format.html { redirect_to @movement, notice: 'Movimiento modificado con exito.' }
         format.json { render :show, status: :ok, location: @movement }
       else

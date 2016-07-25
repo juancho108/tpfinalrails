@@ -100,11 +100,14 @@ SE SELECCIONA AUTOMATICAMENTE EL ESTADO "PAGO PARCIAL"
 
 CONSULTAR A FRAN: 
 
-1) como itero y me quedo con los precios_netos que no son nil para que cuando todos esten hechos, pueda mostrar el boton CERRAR VENTA en movements.html.erb?
 
-2) proceso en background para guardar en la BD el valor dolar de la api
+SACAR SCAFFOLDS.SCSS -> PARAL OS BUTTONS
 
-3)github problem
+1) como itero y me quedo con los precios_netos que no son nil para que cuando todos esten hechos, pueda mostrar el boton CERRAR VENTA en movements.html.erb? (hecho)
+
+2) proceso en background para guardar en la BD el valor dolar de la api (hecho)
+
+3)github problem (hecho)
 
 CONSULTAR A DARIO:
 
@@ -124,3 +127,14 @@ dolar
 porcentaje mercadolibre
 porcentaje mercadopago
 porcentaje ml_mp
+
+
+
+#########################################
+Tarea en crontab del dolar
+
+crontab -l
+
+#0 */1 * * *  cd /home/juan/Escritorio/tpfinalrailsdigitalstep && rake external:dolar
+
+cada 1 hora verifica el dolar 

@@ -101,16 +101,20 @@ class SalesController < ApplicationController
   end
 
   def close_sale
-    Sale.accionesVentaConcretadaPagoParcial(@sale, current_user, cotizacion_dolar_libre.to_f)
-    respond_to do |format|
-      format.html { redirect_to sales_url, notice: 'La Venta se ha concretado con Exito.' }
-    end
+    if @sale.movements.where('monto_neto > 0').count == @sale.movements.count
+      Sale.accionesVentaConcretadaPagoParcial(@sale, current_user, cotizacion_dolar_libre.to_f)
+      respond_to do |format|
+        format.html { redirect_to sales_url, notice: 'La Venta se ha concretado con Exito.' }
+      end
+    end#sino redireccionar con mensaje de que no se puede cerrar la venta
   end
 
   def movements
+
+    @show_close_sale_button = @sale.movements.where('monto_neto > 0').count == @sale.movements.count
     if @sale.estado != "Pago Parcial"
       respond_to do |format|
-        format.html { redirect_to sales_url, alert: 'La Venta no posee pagos paciales.' }
+      format.html { redirect_to sales_url, alert: 'La Venta no posee pagos paciales.' }
       end
     end
   end

@@ -17,9 +17,11 @@
     </div>
     <div class="col-sm-4">
       <% if @product.tipo_stock == 'Stock Simple' %>
-        <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_simple" '>Cargar Stock Simple</button>
+        <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_simple" '><span class="glyphicon glyphicon-plus
+"></span> Cargar Stock Simple</button>
       <% else %>
-      <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_complejo" '>Cargar Stock Complejo</button>
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_complejo" '><span class="glyphicon glyphicon-plus
+"></span> Cargar Stock Complejo</button>
       <% end -%>
     </div>
     
@@ -58,9 +60,17 @@
                   <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/products/<%=@product.id%>/copies/<%=copy.id%>/sale" '>VENDER</button>
                 <%end%>
                 </td>
-                <td><%= link_to 'Show', product_copy_path(copy.producto, copy) %>
-                    <%= link_to 'Edit', edit_product_copy_path(copy.producto, copy) %>
-                    <%= link_to 'Destroy', product_copy_path(copy.producto, copy), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td>
+                  <%= link_to product_copy_path(copy.producto, copy), method: :get, class: 'btn btn-primary', title: 'Ver' do %>
+                    <i class="fa fa-file"></i>
+                  <% end %>
+                  <%= link_to edit_product_copy_path(copy.producto, copy), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to product_copy_path(copy.producto, copy), confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
             </tbody>

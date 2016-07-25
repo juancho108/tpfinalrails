@@ -6,7 +6,7 @@ class CotizacionDolar
 
       result['blue']
     rescue
-      return 0.0
+      nil
     end
   end
 
@@ -17,7 +17,7 @@ class CotizacionDolar
 
       result['libre']
     rescue
-      return 0.0
+      nil
     end
   end
 end

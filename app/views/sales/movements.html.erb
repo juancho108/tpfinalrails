@@ -58,9 +58,11 @@
             <div class="col-sm-2">
              <button class="btn btn-block btn-primary" onclick="location.href='/sales' ">Volver</button>
             </div>
-            <div class="col-sm-2 col-md-offset-3">
-             <button class="btn btn-block btn-success" onclick="location.href='/sales/<%=@sale.id%>/close_sale' ">CERRAR VENTA</button>
-            </div>
+            <% if @show_close_sale_button %>
+              <div class="col-sm-2 col-md-offset-3">
+               <button class="btn btn-block btn-success" onclick="location.href='/sales/<%=@sale.id%>/close_sale' ">CERRAR VENTA</button>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

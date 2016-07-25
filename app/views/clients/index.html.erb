@@ -15,10 +15,7 @@
     <div class="col-sm-8">
       <h3 class="box-title">Listado de Clientes</h3>
     </div>
-    <div class="col-sm-4">
-      <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='clients/new' ">Nuevo Cliente</button>
-    </div>
-    
+   
   </div><!-- /.box-header -->
   <div class="box-body">
     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -40,7 +37,17 @@
                 <td class="sorting_1"><%= client.nombre %></td>
                 <td><%= client.mail %></td>
                 <td><%= client.detalle_adicional %></td>
-                <td><%= link_to 'Show', client %><%= link_to 'Edit', edit_client_path(client) %><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td>
+                  <%= link_to client, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
+                    <i class="fa fa-file"></i>
+                  <% end %>
+                  <%= link_to edit_client_path(client), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to client, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
             </tbody>
