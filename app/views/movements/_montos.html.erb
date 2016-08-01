@@ -1,0 +1,11 @@
+<% if ((@movement.tipo_operacion == 'Venta') && (@movement.venta.cantidad_de_pagos > 1)) %>
+  <div class="form-group">
+    <label>Monto Bruto:</label>
+    <%= f.number_field :monto_bruto, class: "form-control", placeholder: "Ejemplo: 1200.50...",step:"any" %>
+  </div>
+<%else%>
+  <div class="form-group">
+    <label>Monto Neto:</label>
+    <%= f.number_field :monto_neto, class: "form-control", placeholder: "Ejemplo: 1200.50...",step:"any" %>
+  </div>
+<%end%>

@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-success">
+      <div class="box-header with-border">
+        <h3 class="box-title">Editar Opciones de Configuracion</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <%= form_for(@option) do |f| %>
+          <% if @option.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@option.errors.count, "error") %> prohibited this option from being saved:</h2>
+
+              <ul>
+              <% @option.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <!-- text input -->
+          <div class="form-group">
+            <%= f.label :dolar_libre, "Dolar Libre:", class: "control-label" %>
+            <%= f.number_field :dolar_libre, class: "form-control", placeholder: "Ingrese valor de dolar libre", step: "any" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :dolar_blue, "Dolar Blue:", class: "control-label" %>
+            <%= f.number_field :dolar_blue, class: "form-control", placeholder: "Ingrese valor de dolar blue", step: "any" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :porcentaje_mercadolibre, "% descuento Mercado Libre:", class: "control-label" %>
+            <div class="input-group">
+              <%= f.number_field :porcentaje_mercadolibre, class: "form-control", placeholder: "Ingrese % por descuento en MercadoLibre" ,step: "any"%><span class="input-group-addon">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :porcentaje_mercadopago, "% descuento Mercado Pago:", class: "control-label" %>
+            <div class="input-group">
+              <%= f.number_field :porcentaje_mercadopago, class: "form-control", placeholder: "Ingrese % por descuento en MercadoPago", step: "any" %><span class="input-group-addon">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :porcentaje_ml_mp, "% descuento ML y MP :", class: "control-label" %>
+            <div class="input-group">
+              <%= f.number_field :porcentaje_ml_mp, class: "form-control", placeholder: "Ingrese valor % por descuento en ML y MP", step: "any" %><span class="input-group-addon">%</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :skin, "Color de Paleta:", class: "control-label" %>
+            <%= f.select :skin, ['blue','black','purple','green','red','yellow'], {}, class: "form-control select2 select2-hidden-accessible" %>
+          </div>
+      </div><!-- /.box-body -->
+      <div class="box-footer">
+        <%= f.submit 'Enviar', class: "btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
