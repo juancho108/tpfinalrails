@@ -1,9 +1,9 @@
 module ApplicationHelper
   def cotizacion_dolar_blue
-    Configuration.first.dolar_blue
+    Option.first.dolar_blue
   end
   def cotizacion_dolar_libre
-    Configuration.first.dolar_libre
+    Option.first.dolar_libre
   end
 
 ######################################

@@ -22,6 +22,7 @@
             </div>
           <% end %>
           <!-- text input -->
+          <%unless @inputs_pago_parcial %>
           <div class="form-group">
             <label>Operacion:</label>
             <%= f.text_field :operacion, class: "form-control", placeholder: "Ejemplo: Galaxy note..." %>
@@ -30,18 +31,28 @@
             <label>Tipo de Operacion:</label>
             <%= f.select :tipo_operacion, ['Ajuste','Compra','Venta','Ingreso','Egreso','Sueldo','Pago Tarjeta','Factura'], {}, class: "form-control select2 select2-hidden-accessible" %>
           </div>
+          <% end %>
           <div class="form-group">
             <label>Origen:</label>
             <%= f.collection_select :origen_id, Finance.all, :id, :nombre, {selected: @movement.origen_id}, {class: "form-control select2 select2-hidden-accessible "} %>
           </div>
+          <%unless @inputs_pago_parcial %>
           <div class="form-group">
             <label>Destino:</label>
             <%= f.collection_select :destino_id, Finance.all, :id, :nombre, {selected: @movement.destino_id, include_blank: true }, {class: "form-control select2 select2-hidden-accessible "} %>
           </div>
-          <div class="form-group">
-            <label>Monto Neto:</label>
-            <%= f.number_field :monto_neto, class: "form-control", placeholder: "Ejemplo: 1200.50...",step:"any" %>
-          </div>
+          <% end %>
+          <% if ((@movement.tipo_operacion == 'Venta') && (@movement.venta.cantidad_de_pagos > 1)) %>
+            <div class="form-group">
+              <label>Monto Bruto:</label>
+              <%= f.number_field :monto_bruto, class: "form-control", placeholder: "Ejemplo: 1200.50...",step:"any" %>
+            </div>
+          <%else%>
+            <div class="form-group">
+              <label>Monto Neto:</label>
+              <%= f.number_field :monto_neto, class: "form-control", placeholder: "Ejemplo: 1200.50...",step:"any" %>
+            </div>
+          <%end%>
           <div class="form-group">
           <label>Detalles Adicionales (opcional):</label>
           <%= f.text_area(:detalles_adicionales, class: "form-control",size: '3x3') %>

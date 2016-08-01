@@ -28,4 +28,15 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
       movement.destino.save
     end
   end
+
+  def self.verificarMontoBruto movement
+    #verifico con los descuentos
+    if movement.origen.tipo_mp
+      descuento = (movement.monto_bruto*Option.first.porcentaje_mercadopago)/100
+      neto = movement.monto_bruto - descuento
+      movement.update(monto_neto: neto) 
+    else
+      movement.update(monto_neto: movement.monto_bruto)
+    end
+  end
 end

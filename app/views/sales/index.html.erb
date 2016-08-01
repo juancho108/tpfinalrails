@@ -41,8 +41,8 @@
               <tr role="row" class="even">
                 <td class="sorting_1"><%= sale.updated_at.to_formatted_s(:long) %></td>
                 <td><%= sale.copia.producto.nombre %></td>
-                <td><%= sale.precio_bruto %></td>
-                <td><%= sale.precio_neto %></td>
+                <td>$ <%= sale.precio_bruto %></td>
+                <td>$ <%= sale.precio_neto %></td>
                 <td>
                   <%if sale.movements.count > 1%>
                     <p>"Varias"</p>
@@ -53,16 +53,21 @@
                 <td><%= sale.estado %>
                     <%if sale.estado == "Pago Parcial"%>
                       <button class="btn btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/movements" '>Ver Pagos</button>
-                    <%end%>
-                </td>
-                <td><%= sale.ganancia.round(2) %></td>
-                <td>
-                  <%= link_to 'Show', sale %><%= link_to 'Edit', edit_sale_path(sale) %><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Esta Seguro que quiere eliminar la Venta?' } %>
-                  <% if sale.estado == "Pendiente" %>
+                    <%elsif sale.estado == "Pendiente" %>
                     <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/confirm_sale" '>VENDER</button>
                     <button class="btn btn-block btn-danger btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/cancel_sale" '>CANCELAR</button>
-                  <%end%>
+                    <%end%>
                 </td>
+                <td>u$s <%= sale.ganancia.round(2) rescue '0' %></td>
+                <td>
+                  <%= link_to edit_sale_path(sale), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                    <i class="fa fa-edit"></i>
+                  <% end %>
+                  <%= link_to sale, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </td>
+                  
               </tr>
             <% end %>
             </tbody>

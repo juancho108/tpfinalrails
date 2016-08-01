@@ -40,7 +40,10 @@
             <tbody>
             <% @products.each do |product| %>
               <tr role="row" class="even">
-                <td class="sorting_1"><label><%= product.nombre %></label></td>
+                <td class="sorting_1">
+                  <label><%= product.nombre %></label></br>
+                  Categoria: <%=product.categoria.nombre rescue ''%>
+                </td>
                 <td><%= product.copias.all.select{|c| c.estado_del_producto != "Vendido"}.count %></td>
                 <td><%= product.instruccion_general %></td>
                 <td>

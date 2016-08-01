@@ -26,6 +26,7 @@
               <tr role="row">
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Operacion: activate to sort column descending" style="width: 229px;">Operacion</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Tipo de Operacion: activate to sort column descending" style="width: 229px;">Tipo de Operacion</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Monto Bruto: activate to sort column descending" style="width: 229px;">Monto Bruto</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Monto Neto: activate to sort column descending" style="width: 229px;">Monto Neto</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Forma de Pago/Origen: activate to sort column descending" style="width: 229px;">Forma de Pago/Origen</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
@@ -36,6 +37,7 @@
               <tr role="row" class="even">
                 <td class="sorting_1"><%= movement.operacion %></td>
                 <td><%= movement.tipo_operacion %></td>
+                <td><%= movement.monto_bruto rescue '' %></td>
                 <td><%= movement.monto_neto rescue '' %></td>
                 <td><%= movement.origen.nombre rescue '' %></td>
                 <td>
@@ -48,6 +50,7 @@
               <tr>
                 <th rowspan="1" colspan="1">Operacion</th>
                 <th rowspan="1" colspan="1">Tipo de Operacion</th>
+                <th rowspan="1" colspan="1">Monto Bruto</th>
                 <th rowspan="1" colspan="1">Monto Neto</th>
                 <th rowspan="1" colspan="1">Forma de Pago/Origen</th>
                 <th rowspan="1" colspan="1">Acciones</th>

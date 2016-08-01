@@ -19,7 +19,7 @@
       <div class="box-body">
         <div class="form-group">
           <%= f.label :precio_bruto, "Precio Bruto (venta):", class: "control-label" %>
-          <%= f.number_field :precio_bruto, class: "form-control" %>
+          <%= f.number_field :precio_bruto, class: "form-control", step: "any" %>
         </div>
         <div class="form-group">
           <%= f.label :forma_de_pago_id, "Forma de Pago:", class: "control-label" %>

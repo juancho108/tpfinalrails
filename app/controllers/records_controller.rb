@@ -30,9 +30,12 @@ class RecordsController < ApplicationController
   def create
     @record = @product.registros.new(record_params)
     #actualizo orden
-    orden = if @record.orden == nil then 0 else @record.orden+1 end
+    if @record.producto.registros.empty? 
+      orden = 0 
+    else 
+      orden = @record.producto.registros.last.orden + 1 
+    end
     @record.orden = orden
-
 
     respond_to do |format|
       if @record.save

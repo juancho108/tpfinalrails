@@ -73,7 +73,6 @@ class CopiesController < ApplicationController
   end
 
   def create_sale
-
     #crear nueva venta en el modelo , despeja el controlaor
     Sale.crearVenta(params, @copy, cotizacion_dolar_libre.to_f, current_user)
 

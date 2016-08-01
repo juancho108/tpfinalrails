@@ -83,8 +83,11 @@ crear estado "venta anulada" . igual q destruida pero mantiene los datos en la t
 
 verificar caso de concretada a pendiente
 
--ventas se pueden pagar en 2 formas, una se asienta normal cuando se genera la nueva venta, y la otra se asietna en un movimiento, entonces necesito que el movimiento esté enlazado a la venta porque si luego genero 1 movimiento para asentar la parte restante del pago, tengo que saber a q venta pertenece para calcular la ganancia.
+ventas se pueden pagar en 2 formas, una se asienta normal cuando se genera la nueva venta, y la otra se asietna en un movimiento, entonces necesito que el movimiento esté enlazado a la venta porque si luego genero 1 movimiento para asentar la parte restante del pago, tengo que saber a q venta pertenece para calcular la ganancia.
 
+-arreglar en cuando creo una venta la parte de calcular ganancia y precio bruto y neto
+
+- alert dissmisseable
 
 Historial:
 cuenta_ml = objeto
@@ -96,6 +99,8 @@ arreglar los movementes, porque si son VENTAS, deben hacer ciertas cosas como lo
 
 JAVASCRIPT - SI SELECCIONA PAGO PARCIAL APARECEN LOS IMPUT CON LOS VALORES O BIEN SI SELECCIONA LA CANTIDAD DE PAGOS
 SE SELECCIONA AUTOMATICAMENTE EL ESTADO "PAGO PARCIAL"
+
+-Arreglar NOMBRE diferente en movements y venta
 
 
 CONSULTAR A FRAN: 
@@ -119,6 +124,11 @@ CONSULTAR A DARIO:
  Creacion de un boton adicional (caso que exista este estado) que genera un nuevo movimiento para asentar la venta ! 
  Esto solo ocurre en Pagina DS, u OTROS
 
+-------------SI SE ASIENTA UNA VENTA CON 3 FORMAS DE PAGO, Y LAS QUE FALTAN SON TIPO MP, COMO CALCULAR MONTO NETO ? ---------
+Agregar un nuevo campo 'monto_bruto' en movements que solo va a ser usado en caso de que la venta sea en varios pagos.
+De esta forma una persoan carga los pagos por separado y por cada pago (movement) calcula el neto en base a los descuentos seteados en la pagina.
+Una vez todo cargado genera un precio bruto para la venga y un precio neto final para la venta, con lo cual podrá
+calcular la ganancia.
 
 
 Clase Configuracion: 

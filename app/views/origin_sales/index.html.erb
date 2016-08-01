@@ -42,8 +42,8 @@
             <% @origin_sales.each do |origin_sale| %>
               <tr role="row" class="even">
                 <td class="sorting_1"><%= origin_sale.nombre %></td>
-                <td><%= origin_sale.monto_bruto %></td>
-                <td><%= origin_sale.monto_neto %></td>
+                <td>$ <%= origin_sale.monto_bruto %></td>
+                <td>$ <%= origin_sale.monto_neto %></td>
                 <td>
                   <%= link_to origin_sale, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="fa fa-file"></i>

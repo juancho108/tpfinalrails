@@ -14,6 +14,8 @@ class Sale < ActiveRecord::Base
     descuento = (params[:precio_bruto].to_f * 0.11) # - descuentos ML (11%)
     precio_neto = params[:precio_bruto].to_f - descuento
     ganancia = (precio_neto / dolar) - copy.precio_compra
+    #estado = params[:estado]
+    #raise
 
     #creo nuevo Cliente
     cliente = Client.create nombre: params[:nombre], mail: params[:mail], detalle_adicional: params[:detalle]
@@ -59,14 +61,15 @@ class Sale < ActiveRecord::Base
     Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", origen_id: sale.forma_de_pago_id, monto_neto: sale.precio_neto, fecha_operacion: DateTime.now, persona: user.nombre, sale_id: sale.id    
     #quizá actualizar la caja: Finance.actualizarCaja(sale.forma_de_pago_id, sale.precio_neto)
     (sale.cantidad_de_pagos - 1).times do 
-      Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", sale_id: sale.id
+      Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", sale_id: sale.id, monto_neto: 0.0
     end
   end
 
   def self.accionesVentaConcretadaPagoParcial sale, user, dolar
     ganancia = Sale.calcularGanancia(sale, dolar)
     dinero_neto = sale.movements.inject(0){|total,m| total + m.monto_neto} #dinero sumado de las x formas de pago
-    sale.update estado: "Concretada", usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: 0.0
+    dinero_bruto = sale.movements.inject(0){|total,m| total + m.monto_bruto} #dinero sumado de las x formas de pago
+    sale.update estado: "Concretada", usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: dinero_bruto
     sale.copia.update estado_del_producto: "Vendido"
     #actualizo las cajas en base a los movimientos de la venta
     sale.movements.each do |m|
@@ -117,7 +120,11 @@ class Sale < ActiveRecord::Base
   end
 
   def self.calcularGanancia sale, dolar
-    dinero_acumulado = sale.movements.inject(0){|total,m| total + m.monto_neto}
+    dinero_acumulado =  sale.movements.inject(0) do |total,m|
+                           total + m.monto_neto
+                        end
     return ((dinero_acumulado / dolar) - sale.copia.precio_compra)
   end
+
+
 end

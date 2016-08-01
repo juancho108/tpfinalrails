@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722193436) do
+ActiveRecord::Schema.define(version: 20160801142920) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "nombre"
@@ -26,13 +26,6 @@ ActiveRecord::Schema.define(version: 20160722193436) do
     t.string   "detalle_adicional"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-  end
-
-  create_table "configurations", force: :cascade do |t|
-    t.string   "dolar_libre"
-    t.string   "dolar_blue"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "copies", force: :cascade do |t|
@@ -53,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160722193436) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.float    "dinero",     default: 0.0
+    t.boolean  "tipo_mp"
   end
 
   create_table "movements", force: :cascade do |t|
@@ -62,16 +56,28 @@ ActiveRecord::Schema.define(version: 20160722193436) do
     t.float    "monto_neto"
     t.datetime "fecha_operacion"
     t.string   "detalles_adicionales"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "origen_id"
     t.integer  "destino_id"
     t.integer  "sale_id"
+    t.float    "monto_bruto",          default: 0.0
   end
 
   add_index "movements", ["destino_id"], name: "index_movements_on_destino_id"
   add_index "movements", ["origen_id"], name: "index_movements_on_origen_id"
   add_index "movements", ["sale_id"], name: "index_movements_on_sale_id"
+
+  create_table "options", force: :cascade do |t|
+    t.string   "dolar_libre"
+    t.string   "dolar_blue"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.float    "porcentaje_mercadolibre", default: 0.0
+    t.float    "porcentaje_mercadopago",  default: 0.0
+    t.float    "porcentaje_ml_mp",        default: 0.0
+    t.string   "skin",                    default: "blue"
+  end
 
   create_table "origin_sales", force: :cascade do |t|
     t.string   "nombre"

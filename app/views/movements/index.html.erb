@@ -49,7 +49,7 @@
                 <td><%= movement.origen.nombre if movement.origen %></td>
                 <td><%= movement.destino.nombre if movement.destino %></td>
                 <td><%= movement.persona %></td>
-                <td><%= movement.monto_neto %></td>
+                <td>$ <%= movement.monto_neto %></td>
                 <td><%= movement.detalles_adicionales %></td>
                 <td>
                   <%= link_to movement, method: :get, class: 'btn btn-primary', title: 'Ver' do %>

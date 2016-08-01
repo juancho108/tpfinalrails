@@ -38,7 +38,7 @@
             <% @finances.each do |finance| %>
               <tr role="row" class="even">
                 <td class="sorting_1"><%= finance.nombre %></td>
-                <td><%= finance.dinero %></td>
+                <td>$ <%= finance.dinero %></td>
                 <td>
                   <%= link_to finance, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="fa fa-file"></i>

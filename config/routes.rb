@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :options
   resources :categories
   resources :finances
   resources :movements

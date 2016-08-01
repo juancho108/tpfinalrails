@@ -24,6 +24,9 @@ class MovementsController < ApplicationController
   # GET /movements/1/edit
   def edit
     authorize @movement
+    if @movement.tipo_operacion == "Venta"
+      @inputs_pago_parcial = @movement.venta.cantidad_de_pagos > 1
+    end
   end
 
   # POST /movements
@@ -56,6 +59,7 @@ class MovementsController < ApplicationController
       
       if @movement.update(movement_params.merge(persona: current_user.nombre+" "+current_user.apellido))
         if @movement.tipo_operacion == "Venta"
+          Movement.verificarMontoBruto(@movement)
           format.html { redirect_to movements_sale_path(@movement.sale_id), notice: 'Movimiento modificado con exito.' }
         end
         format.html { redirect_to @movement, notice: 'Movimiento modificado con exito.' }
@@ -86,6 +90,6 @@ class MovementsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movement_params
-      params.require(:movement).permit(:operacion, :tipo_operacion, :origen_id, :destino_id, :persona, :monto_neto, :fecha_operacion, :detalles_adicionales, :id)
+      params.require(:movement).permit(:operacion, :tipo_operacion, :origen_id, :destino_id, :persona, :monto_neto, :monto_bruto, :fecha_operacion, :detalles_adicionales, :id)
     end
 end

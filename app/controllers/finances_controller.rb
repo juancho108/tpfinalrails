@@ -76,6 +76,6 @@ class FinancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def finance_params
-      params.require(:finance).permit(:nombre, :dinero)
+      params.require(:finance).permit(:nombre, :dinero, :tipo_mp)
     end
 end
