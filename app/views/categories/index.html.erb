@@ -30,7 +30,7 @@
             <thead>
               <tr role="row">
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 229px;">Nombre</th>
-                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Padre: activate to sort column descending" style="width: 229px;">Padre</th>
+                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Padre: activate to sort column descending" style="width: 229px;">Categoria Padre</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
               </tr>
             </thead>
@@ -46,7 +46,7 @@
                   <%= link_to edit_category_path(category), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="fa fa-edit"></i>
                   <% end %>
-                  <%= link_to category, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                  <%= link_to category, data: {confirm: 'Esta seguro que desea eliminar la categoria?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa fa-trash"></i>
                   <% end %>
                 </td>
@@ -56,7 +56,7 @@
             <tfoot>
               <tr>
                 <th rowspan="1" colspan="1">Nombre</th>
-                <th rowspan="1" colspan="1">Padre</th>
+                <th rowspan="1" colspan="1">Categoria Padre</th>
                 <th rowspan="1" colspan="1">Acciones</th>
               </tr>
             </tfoot>

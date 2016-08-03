@@ -41,8 +41,7 @@
             <% @products.each do |product| %>
               <tr role="row" class="even">
                 <td class="sorting_1">
-                  <label><%= product.nombre %></label></br>
-                  Categoria: <%=product.categoria.nombre rescue ''%>
+                  <label><%=product.categoria.nombre %> </label> <%= product.nombre %>
                 </td>
                 <td><%= product.copias.all.select{|c| c.estado_del_producto != "Vendido"}.count %></td>
                 <td><%= product.instruccion_general %></td>
@@ -73,7 +72,7 @@
                   <%= link_to edit_product_path(product), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="fa fa-edit"></i>
                   <% end %>
-                  <%= link_to product, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                  <%= link_to product, data: {confirm: 'Esta seguro que desea eliminar el producto?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa  fa-trash"></i>
                   <% end %>
                 </td>

@@ -28,7 +28,7 @@
           </div>
           <div class="form-group">
             <%= f.label :padre_id, "Categoria Padre:", class: "control-label" %>
-            <%= f.collection_select :padre_id, Category.all, :id, :nombre, options={selected: @category.padre_id, include_blank: true}, {class: "form-control select2 select2-hidden-accessible "} %>
+            <%= f.collection_select :padre_id, Category.all, :id, :nombre, options={selected: @category.padre_id, include_blank: true}, {class: "form-control"} %>
           </div>
       </div><!-- /.box-body -->
       <div class="box-footer">

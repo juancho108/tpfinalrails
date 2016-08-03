@@ -5,8 +5,9 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.png' %>
 </head> 
-<body <% if user_signed_in? %>class="skin-<%=Option.first.skin%> sidebar-mini" <% else %> class="skin-blue sidebar-mini sidebar-collapse" <% end %> >
+<body <% if user_signed_in? %>class="skin-<%=Option.first.skin%> sidebar-mini" <% else %> class="skin-blue sidebar-mini sidebar-collapse" <% end %> id='bodyy' >
   <div class="wrapper">
     <%= render partial: 'shared/header' %>
     <% if user_signed_in? %>
@@ -15,10 +16,18 @@
     <div class="content-wrapper">
       <section class="content">
         <% if notice %>
-          <p class="alert alert-success"><%= notice %></p>
+          <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Bien!</h4>
+            <%= notice %>
+          </div>
         <% end %>
         <% if alert %>
-          <p class="alert alert-danger"><%= alert %></p>
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Mal!</h4>
+            <%= alert %>
+          </div>
         <% end %>
 
         <%= yield %>

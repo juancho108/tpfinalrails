@@ -13,3 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+/*function barra(){
+  if (document.getElementById('bodyy').className == "skin-blue sidebar-mini") {
+    document.getElementById('bodyy').className = "skin-blue sidebar-mini sidebar-collapse"
+  }else{
+    document.getElementById('bodyy').className = "skin-blue sidebar-mini"
+  }
+}*/

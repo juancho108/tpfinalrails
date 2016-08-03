@@ -6,10 +6,11 @@ class Copy < ActiveRecord::Base
   #validations
   #
   #validando numero de serie
-  validates :nro_serie, allow_blank: true, format: { with: /\A\p{Alnum}+\z/, message: "Solo esta permitido letras y numeros" } 
-
+  validates :nro_serie, allow_blank: true, format: { with: /[a-zA-Z][a-zA-Z0-9 \-']/, message: "Solo esta permitido letras y numeros" } 
+  validates :nro_serie, uniqueness: { message: " (No puede haber 2 numeros de serie iguales)" }
+  
   #validando precio de compra
-  validates_numericality_of :precio_compra, message: "Solo se permiten numeros"  
+  validates :precio_compra, presence: { message: " (El Precio de compra no puede ser vacio)" }
 
   #validando lugar
   validates :lugar, inclusion: { in: ['Departamento', 'Casa de Dario', 'Casa de Maxi','Deposito'],

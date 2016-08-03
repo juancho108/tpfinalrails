@@ -13,7 +13,7 @@
 <div class="box">
   <div class="box-header">
     <div class="col-sm-8">
-      <h3 class="box-title">Listado de Stock de <%= @product.nombre %> (<%= @copies.select{|c| c.estado_del_producto != "Vendido"}.count %>) </h3>
+      <h3 class="box-title">Listado de Stock de: <span><label><%= @product.nombre %></label></span> (<%= @copies.select{|c| c.estado_del_producto != "Vendido"}.count %>) </h3>
     </div>
     <div class="col-sm-4">
       <% if @product.tipo_stock == 'Stock Simple' %>
@@ -49,7 +49,7 @@
             <% @copies.each do |copy| %>
               <tr role="row" class="even">
                 <td class="sorting_1"><%= copy.lugar %></td>
-                <td><%= copy.precio_compra %></td>
+                <td>u$s <%= copy.precio_compra %></td>
                 <td><%= copy.packaging %></td>
                 <td><%= copy.estado_del_producto %></td>
                 <td><%= copy.estado %></td>
@@ -67,7 +67,7 @@
                   <%= link_to edit_product_copy_path(copy.producto, copy), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="fa fa-edit"></i>
                   <% end %>
-                  <%= link_to product_copy_path(copy.producto, copy), confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                  <%= link_to product_copy_path(copy.producto, copy), data: {confirm: 'Esta seguro que desea eliminar la copia?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa fa-trash"></i>
                   <% end %>
                 </td>

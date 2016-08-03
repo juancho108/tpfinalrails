@@ -148,3 +148,8 @@ crontab -l
 #0 */1 * * *  cd /home/juan/Escritorio/tpfinalrailsdigitalstep && rake external:dolar
 
 cada 1 hora verifica el dolar 
+
+
+###########################
+
+verificar si cuando creo un egreso y no tiene un ingreso asociado, explota el tema de restar de uan cuenta que no existe

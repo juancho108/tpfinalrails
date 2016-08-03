@@ -5,5 +5,7 @@ class Product < ActiveRecord::Base
   has_many :registros, :class_name => 'Record'
   
   #validations
-  validates :nombre, presence: true
+  validates :nombre, presence: { message: " (El nombre no puede ser vacio)" }
+  validates :nombre, format: { with: /[a-zA-Z][a-zA-Z0-9 \-']/ ,message: "(Solo esta permitido letras y numeros)" } 
+  validates :nombre, uniqueness: { message: " (No puede haber 2 productos con el mismo nombre)" } 
 end

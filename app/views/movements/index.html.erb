@@ -55,11 +55,13 @@
                   <%= link_to movement, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="fa fa-file"></i>
                   <% end %>
-                  <%= link_to edit_movement_path(movement), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
-                    <i class="fa fa-edit"></i>
-                  <% end %>
-                  <%= link_to movement, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
-                    <i class="fa fa-trash"></i>
+                  <% if movement.tipo_operacion != "Ingreso" %>
+                    <%= link_to edit_movement_path(movement), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                      <i class="fa fa-edit"></i>
+                    <% end %>
+                    <%= link_to movement, method: :delete, data: {confirm: "Esta seguro que desea eliminar el movimiento? (esto generará que el dinero del mismo se reestablezca)"}, class: 'btn btn-danger', title: 'Eliminar' do %>
+                      <i class="fa fa-trash"></i>
+                    <% end %>
                   <% end %>
                 </td>
               </tr>

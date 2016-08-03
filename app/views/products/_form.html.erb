@@ -23,13 +23,12 @@
           <% end %>
           <!-- text input -->
           <div class="form-group">
-            <%= f.label :nombre, "Nombre:", class: "control-label" %>
-            <%= f.text_field :nombre, class: "form-control", placeholder: "Ingrese nombre" %>
+            <%= f.label :category_id, "Categoria:", class: "control-label" %>
+            <%= f.collection_select :category_id, Category.categoriesForProducts, :id, :nombre_y_padre, options={selected: @product.category_id, include_blank: false}, {class: "form-control", autofocus: true} %>
           </div>
           <div class="form-group">
-            <%= f.label :category_id, "Categoria:", class: "control-label" %>
-            <%= f.collection_select :category_id, Category.all, :id, :nombre, options={selected: @product.category_id, include_blank: true}, {class: "form-control select2 select2-hidden-accessible "} %>
-            
+            <%= f.label :nombre, "Nombre:", class: "control-label" %>
+            <%= f.text_field :nombre, class: "form-control", placeholder: "Ingrese nombre sin repetir el nombre de la CATEGORIA" %>
           </div>
           <div class="form-group">
             <%= f.label :instruccion_general, "Instrucciones:", class: "control-label" %>

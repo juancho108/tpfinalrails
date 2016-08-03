@@ -39,9 +39,9 @@ class MovementsController < ApplicationController
 
     respond_to do |format|
       if @movement.save
-        @movement.origen.dinero += @movement.monto_neto
-        @movement.origen.save
-        #Movement.verificarIngreso @movement
+        Movement.sumarDinero @movement
+        
+        Movement.verificarIngreso @movement, current_user
         format.html { redirect_to @movement, notice: 'Movimiento creado con exito.' }
         format.json { render :show, status: :created, location: @movement }
       else
@@ -75,9 +75,10 @@ class MovementsController < ApplicationController
   # DELETE /movements/1.json
   def destroy
     authorize @movement
+    Movement.revertir @movement
     @movement.destroy
     respond_to do |format|
-      format.html { redirect_to movements_url, notice: 'Movimiento borrado con exito.' }
+      format.html { redirect_to movements_url, notice: 'Movimiento borrado con exito. El dinero se ha regresado con exito' }
       format.json { head :no_content }
     end
   end

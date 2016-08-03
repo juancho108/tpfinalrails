@@ -33,7 +33,7 @@ class FinancesController < ApplicationController
 
     respond_to do |format|
       if @finance.save
-        format.html { redirect_to @finance, notice: 'Caja creada con exito.' }
+        format.html { redirect_to finances_path, notice: 'Caja creada con exito.' }
         format.json { render :show, status: :created, location: @finance }
       else
         format.html { render :new }
