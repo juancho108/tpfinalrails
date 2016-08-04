@@ -40,7 +40,7 @@
             <% @sales.each do |sale| %>
               <tr role="row" class="even">
                 <td class="sorting_1"><%= sale.updated_at.to_formatted_s(:long) %></td>
-                <td><%= sale.copia.producto.nombre %></td>
+                <td><label><%= sale.copia.producto.categoria.nombre %></label> - <%= sale.copia.producto.nombre %></td>
                 <td>$ <%= sale.precio_bruto %></td>
                 <td>$ <%= sale.precio_neto %></td>
                 <td>
@@ -63,7 +63,7 @@
                   <%= link_to edit_sale_path(sale), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="fa fa-edit"></i>
                   <% end %>
-                  <%= link_to sale, confirm: 'Estas seguro?', disable_with: 'borrando...', method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
+                  <%= link_to sale, data: {confirm: 'Esta seguro que desea eliminar la venta?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa fa-trash"></i>
                   <% end %>
                 </td>

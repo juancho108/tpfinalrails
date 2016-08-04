@@ -7,7 +7,7 @@ class Copy < ActiveRecord::Base
   #
   #validando numero de serie
   validates :nro_serie, allow_blank: true, format: { with: /[a-zA-Z][a-zA-Z0-9 \-']/, message: "Solo esta permitido letras y numeros" } 
-  validates :nro_serie, uniqueness: { message: " (No puede haber 2 numeros de serie iguales)" }
+  #validates :nro_serie, uniqueness: { message: " (No puede haber 2 numeros de serie iguales)" }
   
   #validando precio de compra
   validates :precio_compra, presence: { message: " (El Precio de compra no puede ser vacio)" }

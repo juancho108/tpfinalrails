@@ -75,7 +75,7 @@ comenzar a crear policies
 
 
 
-agregar botoon volver a Stock simple y complejo
+agregar botoon volver a Stock simple y complejo (hecho)
 
 -si editas cuenta ml, arreglar montos en las otras clases (esto en una venta)
 
@@ -87,7 +87,7 @@ ventas se pueden pagar en 2 formas, una se asienta normal cuando se genera la nu
 
 -arreglar en cuando creo una venta la parte de calcular ganancia y precio bruto y neto
 
-- alert dissmisseable
+ alert dissmisseable (hecho)
 
 Historial:
 cuenta_ml = objeto
@@ -152,4 +152,7 @@ cada 1 hora verifica el dolar
 
 ###########################
 
-verificar si cuando creo un egreso y no tiene un ingreso asociado, explota el tema de restar de uan cuenta que no existe
+-Arreglar function FINANCE de actualziar caja porq paso un ID al pedo
+verificar una venta en pagos parciales
+
+verificar permisos y botones

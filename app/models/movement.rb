@@ -16,7 +16,7 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
     message: "El valor debe ser uno de los predefinidos" }
 
 #validando monto neto
-validates :monto_neto, presence: { message: " Este campo no puede ser vacio" }
+#validates :monto_neto, presence: { message: " Este campo no puede ser vacio" }
 
 
 
@@ -43,7 +43,7 @@ validates :monto_neto, presence: { message: " Este campo no puede ser vacio" }
 
   def self.revertir movement
     Movement.restarDinero(movement)
-    if (movement.tipo_operacion == 'Egreso')
+    if (movement.destino)
       Movement.restarDinero(movement.hijo)
     end
   end

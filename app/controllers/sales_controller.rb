@@ -80,11 +80,8 @@ class SalesController < ApplicationController
 
   def confirm_sale
 
-    @sale.update estado: "Concretada"
-    @sale.copia.update estado_del_producto: "Vendido"
-
     #realiza las acciones correspondientes al concretar una venta
-    Sale.accionesVentaConcretada(@sale, current_user)
+    Sale.accionesVentaConcretadaDesdePendiente(@sale, current_user)
     
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'La Venta se ha registrado con Exito.' }
@@ -102,11 +99,15 @@ class SalesController < ApplicationController
 
   def close_sale
     if @sale.movements.where('monto_neto > 0').count == @sale.movements.count
-      Sale.accionesVentaConcretadaPagoParcial(@sale, current_user, cotizacion_dolar_libre.to_f)
+      Sale.accionesVentaConcretadaDesdePagoParcial(@sale, current_user)
       respond_to do |format|
         format.html { redirect_to sales_url, notice: 'La Venta se ha concretado con Exito.' }
       end
-    end#sino redireccionar con mensaje de que no se puede cerrar la venta
+    else
+      respond_to do |format|
+        format.html { redirect_to sales_url, alert: 'No se ha podido cerrar la venta.' }
+      end
+    end
   end
 
   def movements

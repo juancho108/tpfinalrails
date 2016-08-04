@@ -32,7 +32,7 @@ class OriginSalesController < ApplicationController
     authorize @origin_sale
     respond_to do |format|
       if @origin_sale.save
-        format.html { redirect_to @origin_sale, notice: 'Origin sale was successfully created.' }
+        format.html { redirect_to origin_sales_path, notice: 'Originen de Venta creado con exito.' }
         format.json { render :show, status: :created, location: @origin_sale }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class OriginSalesController < ApplicationController
     authorize @origin_sale
     respond_to do |format|
       if @origin_sale.update(origin_sale_params)
-        format.html { redirect_to @origin_sale, notice: 'Origin sale was successfully updated.' }
+        format.html { redirect_to @origin_sale, notice: 'Originen de Venta actualizado con exito.' }
         format.json { render :show, status: :ok, location: @origin_sale }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class OriginSalesController < ApplicationController
     authorize @origin_sale
     @origin_sale.destroy
     respond_to do |format|
-      format.html { redirect_to origin_sales_url, notice: 'Origin sale was successfully destroyed.' }
+      format.html { redirect_to origin_sales_url, notice: 'Origen de Venta eliminado con exito.' }
       format.json { head :no_content }
     end
   end

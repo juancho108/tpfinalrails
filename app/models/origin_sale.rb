@@ -16,10 +16,9 @@ class OriginSale < ActiveRecord::Base
 
   #methods
   #
-  def self.actualizarOrigenDeLaVenta precio_bruto, precio_neto, origen_id
-    a = OriginSale.find(origen_id)
-    a.monto_bruto += precio_bruto
-    a.monto_neto += precio_neto
-    a.save
+  def self.actualizarOrigenDeLaVenta precio_bruto, precio_neto, origin_sale
+    origin_sale.monto_bruto += precio_bruto
+    origin_sale.monto_neto += precio_neto
+    origin_sale.save
   end
 end

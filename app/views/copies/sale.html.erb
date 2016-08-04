@@ -6,6 +6,8 @@
 
     
     if (cantidad_de_pagos.value != 1){
+      deshabilitarFormaDePago();
+      deshabilitarPrecioBruto();
       estado.value = "Pago Parcial"
       estado[2].disabled = false
       //desactivo los estados restantes
@@ -24,6 +26,8 @@
       }
       estado.options[2].selected = true
     }else{
+      habilitarFormaDePago();
+      habilitarPrecioBruto();
       for (var i = 0; i < estado.length ; i++) {
         if ((estado[i].value == "Concretada")||(estado[i].value == "Pendiente"))
         {
@@ -39,6 +43,22 @@
     }
   }
 
+  function deshabilitarPrecioBruto(){
+    document.getElementById('precio_bruto').disabled = true
+  }
+
+  function deshabilitarFormaDePago(){
+    document.getElementById('forma_de_pago_id').disabled = true
+  }
+
+  function habilitarFormaDePago(){
+    document.getElementById('forma_de_pago_id').disabled = false
+  }
+
+  function habilitarFormaDePago(){
+    document.getElementById('forma_de_pago_id').disabled = false
+  }
+
 </script>
 <div class="row">
   <div class="col-md-6">
@@ -51,7 +71,7 @@
           <div class="box-body">
             <div class="form-group">
               <label>Cantidad de Pagos:</label>
-              <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="cantidad_de_pagos" id="cantidad_de_pagos" onchange="sellar_estado()">
+              <select class="form-control" name="cantidad_de_pagos" id="cantidad_de_pagos" onchange="sellar_estado()" autofocus="on">
                 <option selected="selected" value="1">1</option>
                 <% (2..6).each do |i| %>
                 <option value="<%=i%>"><%=i%></option>  
@@ -60,12 +80,11 @@
             </div>
             <div class="form-group">
               <label>Precio Bruto (en Pesos):</label>
-              <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200.99" name="precio_bruto">
+              <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200.99" name="precio_bruto" id="precio_bruto">
             </div>
             <div class="form-group">
               <label>Forma de Pago:</label>
-              <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="forma_de_pago_id" >
-                <option selected="selected"></option>
+              <select class="form-control" name="forma_de_pago_id" id="forma_de_pago_id" >
                 <% Finance.all.each do |f| %>
                   <option value="<%=f.id%>"><%=f.nombre%></option>  
                 <%end%>
@@ -73,8 +92,7 @@
             </div>
             <div class="form-group">
               <label>Origen de Venta</label>
-              <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="origin_sale_id" id="origin_sale_id">
-                <option selected="selected"></option>
+              <select class="form-control" name="origin_sale_id" id="origin_sale_id">
                 <% OriginSale.all.each do |os| %>
                   <option value="<%=os.id%>"><%=os.nombre%></option>  
                 <%end%>
@@ -82,7 +100,7 @@
             </div>
             <div class="form-group">
               <label>Estado de la venta:</label>
-              <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="estado" id="estado">
+              <select class="form-control" name="estado" id="estado">
                 <option selected="selected" value="Concretada">Concretada</option>
                 <option value="Pendiente">Pendiente</option>
                 <option value="Pago Parcial" disabled="true">Pago Parcial</option>

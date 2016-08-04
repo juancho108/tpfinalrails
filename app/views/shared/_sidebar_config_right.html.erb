@@ -14,35 +14,17 @@
           <%if os.tipo == true%>
             <li>
               <a href="javascript::;">
-                <i class="menu-icon fa fa-star bg-green"></i>
+                <i class="menu-icon fa fa-maxcdn bg-yellow"></i>
                 <div class="menu-info">
                   <h4 class="control-sidebar-subheading"><%=os.nombre%></h4>
-                  <p><%=os.monto_neto%></p>
+                  <p>Bruto: <%=os.monto_bruto%></p>
+                  <p>Neto: <%=os.monto_neto.round(2)%></p>
                 </div>
               </a>
             </li>    
           <%end%> 
         <%end%>
       </ul><!-- /.control-sidebar-menu -->
-  
-
-    </div><!-- /.tab-pane -->
-    <!-- Stats tab content -->
-    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
-    <!-- Settings tab content -->
-    <div class="tab-pane" id="control-sidebar-settings-tab">            
-      <form method="post">
-        <h3 class="control-sidebar-heading">General Settings</h3>
-        <div class="form-group">
-          <label class="control-sidebar-subheading">
-            Report panel usage
-            <input type="checkbox" class="pull-right" checked="">
-          </label>
-          <p>
-            Some information about this general settings option
-          </p>
-        </div><!-- /.form-group -->
-      </form>
     </div><!-- /.tab-pane -->
   </div>
 </aside>

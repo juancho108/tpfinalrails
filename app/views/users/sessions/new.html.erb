@@ -4,7 +4,7 @@
         <a href="#"><b>Digital</b>STEP</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Iniciar sesion</p>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-group has-feedback">
             <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true %>
@@ -15,27 +15,14 @@
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
-            <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label>
-                  <% if devise_mapping.rememberable? -%>
-                    <%= f.check_box :remember_me %>
-                    <%= f.label :remember_me %>
-                  <% end %>
-                </label>
-              </div>
-            </div><!-- /.col -->
-            <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
             </div><!-- /.col -->
           </div>
         <% end %>
 
-        <a href="#">I forgot my password</a><br>
-
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
-<%= render "users/shared/links" %>
     <script>
       $(function () {
         $('input').iCheck({
