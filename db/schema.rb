@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803062802) do
+ActiveRecord::Schema.define(version: 20160808160709) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "nombre"
@@ -73,12 +73,13 @@ ActiveRecord::Schema.define(version: 20160803062802) do
   create_table "options", force: :cascade do |t|
     t.string   "dolar_libre"
     t.string   "dolar_blue"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.float    "porcentaje_mercadolibre", default: 0.0
     t.float    "porcentaje_mercadopago",  default: 0.0
     t.float    "porcentaje_ml_mp",        default: 0.0
     t.string   "skin",                    default: "blue"
+    t.float    "limite",                  default: 20000.0
   end
 
   create_table "origin_sales", force: :cascade do |t|
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160803062802) do
     t.boolean  "tipo"
     t.float    "monto_bruto", default: 0.0
     t.float    "monto_neto",  default: 0.0
+    t.integer  "reset",       default: 0
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -109,11 +111,12 @@ ActiveRecord::Schema.define(version: 20160803062802) do
   create_table "records", force: :cascade do |t|
     t.string   "estado"
     t.integer  "orden"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "copy_id"
     t.integer  "product_id"
     t.integer  "cuenta_ml_id"
+    t.float    "precio_venta", default: 0.0
   end
 
   add_index "records", ["cuenta_ml_id"], name: "index_records_on_cuenta_ml_id"

@@ -19,11 +19,7 @@
     <ul class="sidebar-menu">
       <li class="header"><h4>Menu</h4></li>
       <!-- Optionally, you can add icons to the links -->
-      <% if current_user.admin? %>
-        <%= render 'shared/menu_admin' %>
-      <%else%>
-        <%= render 'shared/menu_vendedor' %>
-      <%end%>
+        <%= render "shared/menu_#{current_user.role}" %>
     </ul><!-- /.sidebar-menu -->
   </section>
   <!-- /.sidebar -->

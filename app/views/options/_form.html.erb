@@ -45,6 +45,10 @@
             </div>
           </div>
           <div class="form-group">
+            <%= f.label :limite, "Limite de Venta en cuentas ML:", class: "control-label" %>
+            <%= f.number_field :limite, class: "form-control", placeholder: "Ingrese limite para cuentas de ML", step: "any" %>
+          </div>
+          <div class="form-group">
             <%= f.label :skin, "Color de Paleta:", class: "control-label" %>
             <%= f.select :skin, ['blue','black','purple','green','red','yellow'], {}, class: "form-control select2 select2-hidden-accessible" %>
           </div>

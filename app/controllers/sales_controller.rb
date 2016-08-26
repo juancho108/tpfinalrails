@@ -12,6 +12,9 @@ class SalesController < ApplicationController
   # GET /sales/1
   # GET /sales/1.json
   def show
+    if @sale.estado != "Concretada"
+      redirect_to sales_path, alert: 'La Venta no ha sido concretada, esta accion no puede realizarse.' 
+    end
   end
 
   # GET /sales/new
@@ -53,7 +56,7 @@ class SalesController < ApplicationController
         @sale.cliente.update(client_params)
                
         #verifica si cambió el estado de la venta y realiza las acciones que corresponda
-        Sale.verificarCambios(previous_sale, @sale, current_user)
+        Sale.verificar_cambios(previous_sale, @sale, current_user)
         #Sale.verificarCambioDeEstado(estado_anterior, @sale, current_user) if estado_anterior != @sale.estado
         
         format.html { redirect_to @sale, notice: 'Venta actualizada con exito.' }
@@ -69,7 +72,7 @@ class SalesController < ApplicationController
   # DELETE /sales/1.json
   def destroy
     #realiza acciones necesarias para anular la venta
-    Sale.anularVenta(@sale)
+    Sale.anular_venta(@sale)
     @sale.destroy
     
     respond_to do |format|
@@ -81,7 +84,7 @@ class SalesController < ApplicationController
   def confirm_sale
 
     #realiza las acciones correspondientes al concretar una venta
-    Sale.accionesVentaConcretadaDesdePendiente(@sale, current_user)
+    Sale.acciones_venta_concretada_desde_pendiente(@sale, current_user)
     
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'La Venta se ha registrado con Exito.' }
@@ -90,7 +93,7 @@ class SalesController < ApplicationController
 
   def cancel_sale
 
-    Sale.anularVenta(@sale)
+    Sale.anular_venta(@sale)
     
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'La Venta se ha Cancelado con Exito.' }
@@ -99,7 +102,7 @@ class SalesController < ApplicationController
 
   def close_sale
     if @sale.movements.where('monto_neto > 0').count == @sale.movements.count
-      Sale.accionesVentaConcretadaDesdePagoParcial(@sale, current_user)
+      Sale.acciones_venta_concretada_desde_pago_parcial(@sale, current_user)
       respond_to do |format|
         format.html { redirect_to sales_url, notice: 'La Venta se ha concretado con Exito.' }
       end

@@ -31,6 +31,11 @@
           <%= f.label :estado, "Estado:", class: "control-label" %>
           <%= f.select :estado, Record.states.keys.to_a, {}, class: "form-control select2 select2-hidden-accessible" %>
         </div>
+
+        <div class="form-group">
+          <%= f.label :precio_venta, "Precio de Venta:", class: "control-label" %>
+          <%= f.number_field :precio_venta, class: "form-control", placeholder: "Ingrese valor de dolar libre", step: "any" %>
+        </div>
           
       </div><!-- /.box-body -->
       <div class="box-footer">

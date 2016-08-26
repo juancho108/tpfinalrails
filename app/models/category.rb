@@ -16,7 +16,7 @@ class Category < ActiveRecord::Base
     "#{nombre} >> #{padre.nombre}" rescue "#{nombre}"
   end
 
-  def self.categoriesForProducts
+  def self.categories_for_products
     Category.all.select do |c| 
       (c.padre_id != nil) || (c.hijos.count == 0)
     end

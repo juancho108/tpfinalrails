@@ -34,6 +34,10 @@
             <%= f.label :monto_neto, "Monto Neto:", class: "control-label" %>
             <%= f.text_field :monto_neto, class: "form-control", placeholder: "Ingrese Monto Neto" %>
           </div>
+          <div class="form-group">
+            <%= f.label :reset, "Dia de reseteo:", class: "control-label" %>
+            <%= f.number_field :reset, class: "form-control", placeholder: "Ingrese dia de reseteo" %>
+          </div>
           <div class="form-group">  
             <%= f.label :tipo, "Es un Tipo Cuenta MERCADOLIBRE?", class: "control-label" %>
             <%= f.check_box :tipo, class: "checkbox" %>

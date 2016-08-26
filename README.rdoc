@@ -156,3 +156,16 @@ cada 1 hora verifica el dolar
 verificar una venta en pagos parciales
 
 verificar permisos y botones
+
+verificar editar copia (hecho)
+precio bruto inhabilitado al volver a 1 pago (hecho)
+
+funcion que al setear un determinado dia del mes para cada cuenta ML, cuando llega el dia, pone el bruto en 0
+
+si el bruto de ml se pasa de 20.000 crear alerta ! 
+
+si el precio de venta de una copia en ML (que tiene que saber dond está publicada) sumado a el precio bruto de la cuenta actual , da mas de 20.000, crear alerta.
+
+hacer el SHOW de Sales con todos los datos de una venta en particular(hecho)
+
+-arreglar ancho de dropdown en notificaciones

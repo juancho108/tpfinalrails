@@ -15,10 +15,12 @@
     <div class="col-sm-8">
       <h3 class="box-title">Listado de Categorias</h3>
     </div>
+    <% if current_user.admin? %>
     <div class="col-sm-4">
       <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='categories/new' "><span class="glyphicon glyphicon-plus
 "></span> Nueva Categoria</button>
     </div>
+    <%end%>
     
   </div><!-- /.box-header -->
   <div class="box-body">
@@ -31,7 +33,9 @@
               <tr role="row">
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 229px;">Nombre</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Padre: activate to sort column descending" style="width: 229px;">Categoria Padre</th>
-                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+                <% if current_user.admin? %>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+                <%end%>
               </tr>
             </thead>
             <tbody>
@@ -39,7 +43,8 @@
               <tr role="row" class="even">
                 <td class="sorting_1"><%= category.nombre %></td>
                 <td class="sorting_1"><%= category.padre.nombre rescue '' %></td>
-                <td>
+                <% if current_user.admin? %>
+                  <td>
                   <%= link_to category, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="fa fa-file"></i>
                   <% end %>
@@ -49,7 +54,8 @@
                   <%= link_to category, data: {confirm: 'Esta seguro que desea eliminar la categoria?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa fa-trash"></i>
                   <% end %>
-                </td>
+                  </td>
+                <%end%>
               </tr>
             <% end %>
             </tbody>
@@ -57,7 +63,9 @@
               <tr>
                 <th rowspan="1" colspan="1">Nombre</th>
                 <th rowspan="1" colspan="1">Categoria Padre</th>
-                <th rowspan="1" colspan="1">Acciones</th>
+                <% if current_user.admin? %>
+                  <th rowspan="1" colspan="1">Acciones</th>
+                <%end%>
               </tr>
             </tfoot>
           </table>

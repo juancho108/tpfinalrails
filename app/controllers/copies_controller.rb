@@ -74,8 +74,8 @@ class CopiesController < ApplicationController
 
   def create_sale
     #crear nueva venta en el modelo , despeja el controlaor
-    Sale.crearVenta(params, @copy, current_user)
-
+    Sale.crear_venta(params, @copy, current_user)
+    
       
     begin
     rescue

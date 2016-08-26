@@ -1,5 +1,22 @@
 <p id="notice"><%= notice %></p>
 
+<h3>Venta de: <strong><%= @sale.copia.producto.nombre %></strong></h3>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @sale.estado %>
+</p>
+
+<p>
+  <strong>Cantidad de Pagos:</strong>
+  <%= @sale.cantidad_de_pagos%>
+</p>
+
+<p>
+  <strong>Origen de la venta:</strong>
+  <%= @sale.origin_sale.nombre%>
+</p>
+
 <p>
   <strong>Precio bruto:</strong>
   <%= @sale.precio_bruto %>
@@ -11,14 +28,35 @@
 </p>
 
 <p>
-  <strong>Forma de pago:</strong>
-  <%= @sale.forma_de_pago %>
+  <strong>Ganancia:</strong>
+  u$s <%= @sale.ganancia.round(2) %> 
+</p>
+
+<p>-------------<strong>Forma(s) de pago:</strong>-------------</p>
+<% @sale.movements.each do |m| %>
+  <p> 
+    <%= m.origen.nombre %>
+  </p>
+<%end%>
+
+<p>-----------<strong>Datos cliente</strong>-----------</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @sale.cliente.nombre %>
 </p>
 
 <p>
-  <strong>Ganancia:</strong>
-  <%= @sale.ganancia %>
+  <strong>Mail:</strong>
+  <%= @sale.cliente.mail%>
 </p>
 
-<%= link_to 'Edit', edit_sale_path(@sale) %> |
-<%= link_to 'Back', sales_path %>
+
+<div class="row">
+  <div class="col-sm-2">
+   <button class="btn btn-block btn-primary" onclick="location.href='/sales' ">Volver</button>
+  </div>
+</div>
+
+<!--<%= link_to 'Edit', edit_sale_path(@sale) %> -->
+

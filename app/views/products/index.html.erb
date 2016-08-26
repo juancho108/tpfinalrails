@@ -48,6 +48,7 @@
                 <td>
                   <!-- lugar actual publicado--><p>Publicado en: <%=product.registros.last.cuenta_ml.nombre rescue ''%> </p>
                   <p>Estado: <%=product.registros.last.estado rescue ''%></p>
+                  <p>Precio venta: $ <%=product.registros.last.precio_venta rescue ''%></p>
                   <% if product.registros.empty? %>
                     <button class="btn  btn-default btn-xs" type="button" onclick='location.href="/products/<%=product.id%>/records/new" '>Agregar Nuevo</button>
                   <%else%>

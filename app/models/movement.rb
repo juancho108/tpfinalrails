@@ -22,17 +22,17 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
 
 #Methods
 #
-  def self.sumarDinero movement
+  def self.sumar_dinero movement
     movement.origen.dinero += movement.monto_neto
     movement.origen.save
   end
 
-  def self.restarDinero movement
+  def self.restar_dinero movement
     movement.origen.dinero -= movement.monto_neto
     movement.origen.save
   end
 
-  def self.verificarIngreso movement, user
+  def self.verificar_ingreso movement, user
     #Si era un egreso con un destino, se genera un movimiento "Ingreso" Automático.
     if (movement.tipo_operacion == 'Egreso') && (movement.destino)
       Movement.create operacion: movement.operacion+ " (autom.)", tipo_operacion: "Ingreso", monto_neto: movement.monto_neto.abs, origen_id: movement.destino_id, fecha_operacion: DateTime.now, persona: user.nombre+" "+user.apellido, socio_id: movement.id
@@ -42,13 +42,13 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
   end
 
   def self.revertir movement
-    Movement.restarDinero(movement)
+    Movement.restar_dinero(movement)
     if (movement.destino)
-      Movement.restarDinero(movement.hijo)
+      Movement.restar_dinero(movement.hijo)
     end
   end
 
-  def self.verificarMontoBruto movement
+  def self.verificar_monto_bruto movement
     #verifico con los descuentos
     if movement.origen.tipo_mp
       descuento = (movement.monto_bruto*Option.first.porcentaje_mercadopago)/100

@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(user_params)
       sign_in(@user, :bypass => true) if @user == current_user
-      redirect_to @user, :flash => { :success => 'el Usuario ha sido actualizado correctamente.' }
+      redirect_to users_path, :flash => { :success => 'el Usuario ha sido actualizado correctamente.' }
     else
       render :action => 'edit'
     end
@@ -54,6 +54,6 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:nombre, :apellido, :email, :password, :password_confirmation)
+      params.require(:user).permit(:nombre, :apellido, :email, :password, :password_confirmation, :role)
     end
 end

@@ -69,6 +69,6 @@ class OptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def option_params
-      params.require(:option).permit(:dolar_libre, :dolar_blue, :porcentaje_mercadolibre, :porcentaje_mercadopago, :porcentaje_ml_mp, :skin)
+      params.require(:option).permit(:dolar_libre, :dolar_blue, :porcentaje_mercadolibre, :porcentaje_mercadopago, :porcentaje_ml_mp, :skin, :limite)
     end
 end

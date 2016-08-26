@@ -80,7 +80,7 @@ class RecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def record_params
-      params.require(:record).permit(:cuenta_ml_id, :estado, :orden)
+      params.require(:record).permit(:cuenta_ml_id, :estado, :orden, :precio_venta)
     end
 
     def load_product

@@ -39,9 +39,9 @@ class MovementsController < ApplicationController
 
     respond_to do |format|
       if @movement.save
-        Movement.sumarDinero @movement
+        Movement.sumar_dinero @movement
         
-        Movement.verificarIngreso @movement, current_user
+        Movement.verificar_ingreso @movement, current_user
         format.html { redirect_to @movement, notice: 'Movimiento creado con exito.' }
         format.json { render :show, status: :created, location: @movement }
       else
@@ -59,7 +59,7 @@ class MovementsController < ApplicationController
       
       if @movement.update(movement_params.merge(persona: current_user.nombre+" "+current_user.apellido))
         if @movement.tipo_operacion == "Venta"
-          Movement.verificarMontoBruto(@movement)
+          Movement.verificar_monto_bruto(@movement)
           format.html { redirect_to movements_sale_path(@movement.sale_id), notice: 'Movimiento modificado con exito.' }
         end
         format.html { redirect_to @movement, notice: 'Movimiento modificado con exito.' }

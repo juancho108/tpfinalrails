@@ -42,7 +42,7 @@
                 <td class="sorting_1"><%= sale.updated_at.to_formatted_s(:long) %></td>
                 <td><label><%= sale.copia.producto.categoria.nombre %></label> - <%= sale.copia.producto.nombre %></td>
                 <td>$ <%= sale.precio_bruto %></td>
-                <td>$ <%= sale.precio_neto %></td>
+                <td>$ <%= sale.precio_neto.round(2) rescue '' %></td>
                 <td>
                   <%if sale.movements.count > 1%>
                     <p>"Varias"</p>
@@ -60,9 +60,16 @@
                 </td>
                 <td>u$s <%= sale.ganancia.round(2) rescue '0' %></td>
                 <td>
-                  <%= link_to edit_sale_path(sale), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
-                    <i class="fa fa-edit"></i>
+                  <% if false %>
+                    <%= link_to edit_sale_path(sale), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
+                      <i class="fa fa-edit"></i>
+                    <%end%>
                   <% end %>
+                  <% if sale.estado == "Concretada" %>
+                    <%= link_to sale, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
+                      <i class="fa fa-file"></i>
+                    <% end %>
+                  <%end%>
                   <%= link_to sale, data: {confirm: 'Esta seguro que desea eliminar la venta?'}, method: :delete, class: 'btn btn-danger', title: 'Eliminar' do %>
                     <i class="fa fa-trash"></i>
                   <% end %>

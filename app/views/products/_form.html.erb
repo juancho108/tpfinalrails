@@ -24,7 +24,7 @@
           <!-- text input -->
           <div class="form-group">
             <%= f.label :category_id, "Categoria:", class: "control-label" %>
-            <%= f.collection_select :category_id, Category.categoriesForProducts, :id, :nombre_y_padre, options={selected: @product.category_id, include_blank: false}, {class: "form-control", autofocus: true} %>
+            <%= f.collection_select :category_id, Category.categories_for_products, :id, :nombre_y_padre, options={selected: @product.category_id, include_blank: false}, {class: "form-control", autofocus: true} %>
           </div>
           <div class="form-group">
             <%= f.label :nombre, "Nombre:", class: "control-label" %>

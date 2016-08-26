@@ -18,10 +18,12 @@
     <div class="col-sm-8">
       <h3 class="box-title">Listado de Origenes de Venta</h3>
     </div>
+    <% if current_user.admin? %>
     <div class="col-sm-4">
       <button class="btn btn-block btn-success btn-lg" type="button" onclick="location.href='origin_sales/new' "><span class="glyphicon glyphicon-plus
 "></span> Nuevo Origen de Venta</button>
     </div>
+    <%end%>
     
   </div><!-- /.box-header -->
   <div class="box-body">
@@ -35,7 +37,9 @@
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre: activate to sort column descending" style="width: 229px;">Nombre</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Monto Bruto: activate to sort column ascending" style="width: 249px;">Monto Bruto</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Monto Neto: activate to sort column ascending" style="width: 249px;">Monto Neto</th>
+                <% if current_user.admin? %>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
+                <%end%>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +47,8 @@
               <tr role="row" class="even">
                 <td class="sorting_1"><%= origin_sale.nombre %></td>
                 <td>$ <%= origin_sale.monto_bruto %></td>
-                <td>$ <%= origin_sale.monto_neto %></td>
+                <td>$ <%= origin_sale.monto_neto.round(2) %></td>
+                <% if current_user.admin? %>
                 <td>
                   <%= link_to origin_sale, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                     <i class="fa fa-file"></i>
@@ -55,6 +60,7 @@
                     <i class="fa fa-trash"></i>
                   <% end %>
                 </td>
+                <%end%>
               </tr>
             <% end %>
             </tbody>
@@ -63,7 +69,9 @@
                 <th rowspan="1" colspan="1">Nombre</th>
                 <th rowspan="1" colspan="1">Monto Bruto</th>
                 <th rowspan="1" colspan="1">Monto Neto</th>
-                <th rowspan="1" colspan="1">Acciones</th>
+                <% if current_user.admin? %>
+                  <th rowspan="1" colspan="1">Acciones</th>
+                <%end%>
               </tr>
             </tfoot>
           </table>
