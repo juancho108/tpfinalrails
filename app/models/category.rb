@@ -9,6 +9,7 @@ class Category < ActiveRecord::Base
   #valiando nombre
   validates :nombre, presence: { message: " El nombre no puede ser vacio" }
   validates :nombre, format: { with: /[a-zA-Z][a-zA-Z0-9 \-']/ ,message: "Solo esta permitido letras y numeros" } 
+  validates :nombre, uniqueness: { message: " (No puede haber 2 categorias con el mismo nombre)" }
 
   #methods
   #

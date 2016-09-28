@@ -4,6 +4,7 @@ class OriginSale < ActiveRecord::Base
   #
   #validando nombre
   validates :nombre, presence: { message: " El nombre no puede ser vacio" }
+  validates :nombre, uniqueness: { message: " (No puede haber 2 origenes de venta con el mismo nombre)" }
   #validates :nombre, format: { with: /\A\p{Alnum}+\z/,message: "Solo esta permitido letras y numeros" }
 
   #validando monto bruto
