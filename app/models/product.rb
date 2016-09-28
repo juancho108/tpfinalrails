@@ -15,8 +15,10 @@ class Product < ActiveRecord::Base
   def self.verificar_tope_mercado_libre_productos
     producto = []
     Product.all.each do |p|
-      if (((p.registros.last.precio_venta + p.registros.last.cuenta_ml.monto_bruto) > Option.first.limite) && (p.registros.last.estado == "publicado"))
-        producto.push p
+      if !p.registros.empty?  
+        if (((p.registros.last.precio_venta + p.registros.last.cuenta_ml.monto_bruto) > Option.first.limite) && (p.registros.last.estado == "publicado"))
+          producto.push p
+        end
       end
     end
     return producto
