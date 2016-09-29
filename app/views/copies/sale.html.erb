@@ -59,12 +59,16 @@
     document.getElementById('forma_de_pago_id').disabled = false
   }
 
+  function precioML(precio_venta){
+    document.getElementById('precio_bruto').value = precio_venta;
+  }
+
 </script>
 <div class="row">
   <div class="col-md-6">
     <div class="box box-success">
       <div class="box-header with-border">
-        <h3 class="box-title">Venta de  <%= @product.nombre %> </h3>
+        <h3 class="box-title">Venta de:  <strong><%= @product.categoria.nombre %></strong> <%= @product.nombre %> </h3>
       </div><!-- /.box-header -->
       <div class="box-body">
         <%= form_tag create_sale_product_copy_path do |f| %>
@@ -80,7 +84,7 @@
             </div>
             <div class="form-group">
               <label>Precio Bruto (en Pesos):</label>
-              <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200.99" name="precio_bruto" id="precio_bruto">
+              <input type="number" step="any" class="form-control" placeholder="Ejemplo: 1200.99" name="precio_bruto" id="precio_bruto"><span class="input-group-btn"><button type="button" class="btn btn-success btn-flat" onclick="precioML(<%= @product.registros.last.precio_venta %>)">Precio ML</button></span>
             </div>
             <div class="form-group">
               <label>Forma de Pago:</label>

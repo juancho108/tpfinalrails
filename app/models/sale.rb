@@ -59,7 +59,7 @@ class Sale < ActiveRecord::Base
     OriginSale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto, sale.origin_sale)
 
     #verificar si excede el monto limite de ML
-    OriginSale.verificar_tope_mercado_libre(sale)
+    OriginSale.verificar_tope_mercado_libre
   end
 
   def self.acciones_venta_pendiente sale, user

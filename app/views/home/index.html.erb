@@ -6,14 +6,14 @@
 </section>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="box box-default">
-      <div class="box-header with-border">
-        <i class="fa fa-warning"></i>
-        <h3 class="box-title">Noticias</h3>
-      </div><!-- /.box-header -->
-      <div class="box-body">
-        <% if Product.verificar_tope_mercado_libre_productos.count > 0 %>
+  <% if Product.verificar_tope_mercado_libre_productos.count > 0 %>
+    <div class="col-md-12">
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <i class="fa fa-warning"></i>
+          <h3 class="box-title">Noticias</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
           <% Product.verificar_tope_mercado_libre_productos.each do |p| %>
             <div class="alert alert-danger alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -21,8 +21,8 @@
               <h4>Si el producto <strong><%= p.categoria.nombre + p.nombre %></strong> es vendido, excederá el limite en la cuenta: <%= p.registros.last.cuenta_ml.nombre %>. Por favor reevea la situación. (Consejo: pausar la publicación con urgencia.)</h4>
             </div>
           <% end %>
-        <% end %>
-      </div><!-- /.box-body -->
-    </div><!-- /.box -->
-  </div><!-- /.col -->
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div><!-- /.col -->
+  <% end %>
 </div>

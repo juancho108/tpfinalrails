@@ -35,7 +35,7 @@ class OriginSale < ActiveRecord::Base
     cuenta = []
     OriginSale.all.each do |os|
       if os.monto_bruto > Option.first.limite
-        cuenta.push[os]
+        cuenta.push os
       end
     end
     return cuenta
