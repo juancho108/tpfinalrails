@@ -1,0 +1,7 @@
+<% OriginSale.where("monto_bruto > ?", Option.first.limite).each do |os| %>
+  <div class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h3><i class="icon fa fa-ban"></i> Atencion!</h3>
+    <h4>La cuenta <strong><%= os.nombre %></strong> Ha excedido el limite preestablecido. Por favor reevea la situación. (Consejo: revisar las ultimas 3 ventas.)</h4>
+  </div>
+<% end %>

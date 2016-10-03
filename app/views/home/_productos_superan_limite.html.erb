@@ -1,0 +1,7 @@
+<% Product.verificar_tope_mercado_libre_productos.each do |p| %>
+	<div class="alert alert-warning alert-dismissable">
+  		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  		<h3><i class="icon fa fa-ban"></i> Cuidado!</h3>
+  		<h4>Si el producto: <strong><%= p.categoria.nombre %> <%= p.nombre %></strong> es vendido, excederá el limite en la cuenta: <%= p.registros.last.cuenta_ml.nombre %>. Por favor reevea la situación. (Consejo: pausar la publicación con urgencia.)</h4>
+	</div>
+<% end %>
