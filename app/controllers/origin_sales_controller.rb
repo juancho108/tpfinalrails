@@ -75,6 +75,6 @@ class OriginSalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def origin_sale_params
-      params.require(:origin_sale).permit(:nombre, :monto_bruto, :monto_neto, :tipo)
+      params.require(:origin_sale).permit(:nombre, :monto_bruto, :monto_neto, :tipo, :reset)
     end
 end

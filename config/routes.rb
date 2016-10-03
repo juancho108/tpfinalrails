@@ -35,7 +35,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :options
+  resources :options do 
+    member do
+      get :resetear_cuentas_ml
+      get :actualizar_valor_dolar
+    end
+  end
   resources :categories
   resources :finances
   resources :movements

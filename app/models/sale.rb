@@ -46,7 +46,7 @@ class Sale < ActiveRecord::Base
     sale.update(precio_neto: precio_neto)
    
     #crea un nuevo movimiento
-    Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", origen_id: sale.forma_de_pago_id, monto_neto: sale.precio_neto, fecha_operacion: DateTime.now, persona: user.nombre, sale_id: sale.id    
+    Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", origen_id: sale.forma_de_pago_id, monto_neto: sale.precio_neto, fecha_operacion: DateTime.now, persona: user.nombre+' '+user.apellido, sale_id: sale.id    
     
     #actualizo la ganancia
     ganancia = Sale.calcular_ganancia(sale)
@@ -74,7 +74,7 @@ class Sale < ActiveRecord::Base
     OriginSale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto, sale.origin_sale)
 
     #verifica si se pasa del monto tope para cuentas de ml
-    OriginSale.verificar_tope_mercado_libre(sale)
+    OriginSale.verificar_tope_mercado_libre
   end
 
   def self.acciones_venta_pago_parcial sale, user

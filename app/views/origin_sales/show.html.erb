@@ -14,6 +14,10 @@
   <strong>Monto neto:</strong>
   <%= @origin_sale.monto_neto %>
 </p>
+<p>
+  <strong>Dia de Reseteo:</strong>
+  <%= @origin_sale.reset %>
+</p>
 
 <%= link_to 'Edit', edit_origin_sale_path(@origin_sale) %> |
 <%= link_to 'Back', origin_sales_path %>

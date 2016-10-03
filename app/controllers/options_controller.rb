@@ -1,5 +1,5 @@
 class OptionsController < ApplicationController
-  before_action :set_option, only: [:show, :edit, :update, :destroy]
+  before_action :set_option, only: [:show, :edit, :update, :destroy, :resetear_cuentas_ml, :actualizar_valor_dolar]
 
   # GET /options
   # GET /options.json
@@ -59,6 +59,14 @@ class OptionsController < ApplicationController
       format.html { redirect_to options_url, notice: 'option was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def resetear_cuentas_ml
+    OriginSale.resetear_cuentas
+  end
+
+  def actualizar_valor_dolar
+    Option.actualizar_valor_dolar
   end
 
   private

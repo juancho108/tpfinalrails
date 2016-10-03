@@ -14,7 +14,12 @@
           <%if os.tipo == true%>
             <li>
               <a href="javascript::;">
-                <i class="menu-icon fa fa-maxcdn bg-yellow"></i>
+                <% if os.monto_bruto > Option.first.limite %>
+                  <i class="menu-icon fa fa-maxcdn bg-red"></i>
+                <% else os.monto_bruto < Option.first.limite %>
+                  <i class="menu-icon fa fa-maxcdn bg-green"></i>
+                <% end %>
+
                 <div class="menu-info">
                   <h4 class="control-sidebar-subheading"><%=os.nombre%></h4>
                   <p>Bruto: <%=os.monto_bruto%></p>

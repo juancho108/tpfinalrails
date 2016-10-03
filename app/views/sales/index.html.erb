@@ -29,6 +29,7 @@
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Producto: activate to sort column descending" style="width: 229px;">Producto</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Precio Bruto: activate to sort column descending" style="width: 229px;">Precio Bruto</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Precio Neto: activate to sort column ascending" style="width: 281px;">Precio Neto</th>
+                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Origen de la Venta: activate to sort column ascending" style="width: 249px;">Origen de la Venta</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Forma de Pago: activate to sort column ascending" style="width: 249px;">Forma de Pago</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Quien cargo: activate to sort column ascending" style="width: 249px;">Quien Cargo</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 249px;">Estado</th>
@@ -43,6 +44,7 @@
                 <td><label><%= sale.copia.producto.categoria.nombre %></label> - <%= sale.copia.producto.nombre %></td>
                 <td>$ <%= sale.precio_bruto %></td>
                 <td>$ <%= sale.precio_neto.round(2) rescue '' %></td>
+                <td> <%= sale.origin_sale.nombre rescue '' %></td>
                 <td>
                   <%if sale.movements.count > 1%>
                     <p>"Varias"</p>
@@ -83,6 +85,7 @@
                 <th rowspan="1" colspan="1">Fecha</th>
                 <th rowspan="1" colspan="1">Producto</th>
                 <th rowspan="1" colspan="1">Precio Bruto</th>
+                <th rowspan="1" colspan="1">Origen de la Venta</th>
                 <th rowspan="1" colspan="1">Precio Neto</th>
                 <th rowspan="1" colspan="1">Forma de Pago</th>
                 <th rowspan="1" colspan="1">Quien Cargo</th>
