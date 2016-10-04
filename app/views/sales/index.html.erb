@@ -33,7 +33,9 @@
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Forma de Pago: activate to sort column ascending" style="width: 249px;">Forma de Pago</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Quien cargo: activate to sort column ascending" style="width: 249px;">Quien Cargo</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Estado: activate to sort column ascending" style="width: 249px;">Estado</th>
-                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Ganancia: activate to sort column ascending" style="width: 249px;">Ganancia</th>
+                <%if current_user.role == "admin"%>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Ganancia: activate to sort column ascending" style="width: 249px;">Ganancia</th>
+                <% end %>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
               </tr>
             </thead>
@@ -60,7 +62,9 @@
                     <button class="btn btn-block btn-danger btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/cancel_sale" '>CANCELAR</button>
                     <%end%>
                 </td>
-                <td>u$s <%= sale.ganancia.round(2) rescue '0' %></td>
+                <%if current_user.role == "admin"%>
+                  <td>u$s <%= sale.ganancia.round(2) rescue '0' %></td>
+                <%end%>  
                 <td>
                   <% if false %>
                     <%= link_to edit_sale_path(sale), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
@@ -90,7 +94,9 @@
                 <th rowspan="1" colspan="1">Forma de Pago</th>
                 <th rowspan="1" colspan="1">Quien Cargo</th>
                 <th rowspan="1" colspan="1">Estado</th>
-                <th rowspan="1" colspan="1">Ganancia</th>                
+                <%if current_user.role == "admin"%>
+                  <th rowspan="1" colspan="1">Ganancia</th>
+                <% end %>                
                 <th rowspan="1" colspan="1">Acciones</th>
               </tr>
             </tfoot>

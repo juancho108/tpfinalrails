@@ -32,7 +32,6 @@
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nombre y Apellido: activate to sort column descending" style="width: 229px;">Nombre y Apellido</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Email: activate to sort column descending" style="width: 229px;">Email</th>
                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rol: activate to sort column descending" style="width: 229px;">Rol</th>
-                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Estado: activate to sort column descending" style="width: 229px;">Estado</th>
                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Acciones: activate to sort column ascending" style="width: 199px;">Acciones</th>
               </tr>
             </thead>
@@ -42,11 +41,7 @@
                 <td class="sorting_1"><%= user.nombre+' '+user.apellido %></td>
                 <td class="sorting_1"><%= user.email %></td>
                 <td class="sorting_1"><%= user.role %></td>
-                <td class="sorting_1">"SI O NO"</td>
                 <td>
-                  <%= link_to user, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
-                    <i class="fa fa-file"></i>
-                  <% end %>
                   <%= link_to edit_user_path(user), method: :get, class: 'btn btn-warning', title: 'Editar' do %>
                     <i class="fa fa-edit"></i>
                   <% end %>
@@ -62,7 +57,6 @@
                 <th rowspan="1" colspan="1">Nombre y Apellido</th>
                 <th rowspan="1" colspan="1">Email</th>
                 <th rowspan="1" colspan="1">Rol</th>
-                <th rowspan="1" colspan="1">Estado</th>
                 <th rowspan="1" colspan="1">Acciones</th>
               </tr>
             </tfoot>
