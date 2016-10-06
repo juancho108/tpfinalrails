@@ -1,0 +1,18 @@
+<% if current_user %>
+  <div class="row">
+    <% if ((Product.verificar_tope_mercado_libre_productos.count > 0) || (OriginSale.where("monto_bruto > ?", Option.first.limite).count)) %>
+      <div class="col-md-12">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-warning"></i>
+            <h3 class="box-title">Noticias</h3>
+          </div><!-- /.box-header -->
+          <div class="box-body">
+            <%= render 'productos_superan_limite' %>
+            <%= render 'cuentas_superan_limite' %>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+    <% end %>
+  </div>
+<% end %>

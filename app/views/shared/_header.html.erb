@@ -16,48 +16,7 @@
     <!-- Navbar Right Menu -->
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-        <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning"><%=Product.verificar_tope_mercado_libre_productos.count%></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">Tenes <%=Product.verificar_tope_mercado_libre_productos.count%> notificaciones</li>
-            <li>
-              <!-- inner menu: contains the actual data -->
-              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
-              <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                <% Product.verificar_tope_mercado_libre_productos.each do |p| %>
-                <li>
-                
-                  <a href="/products/<%=p.id%>/records/<%=p.registros.last.id%>/edit">
-                    <p><i class="fa fa-laptop text-yellow"></i><%=p.categoria.nombre%> - <%=p.nombre%> excede el limite en la cuenta: <%=p.registros.last.cuenta_ml.nombre%>. Click para editar el estado! </p>
-                  </a>
-                </li>
-                <% end %>
-              </ul>
-          </ul>
-        </li>
-        <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-            <i class="fa fa-warning"></i>
-            <span class="label label-danger"><%=OriginSale.verificar_tope_mercado_libre.count%></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">Tenes <%=OriginSale.verificar_tope_mercado_libre.count%> notificaciones</li>
-            <li>
-              <!-- inner menu: contains the actual data -->
-              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                <% OriginSale.verificar_tope_mercado_libre.each do |os| %>
-                <li>
-                  <a href="/sales">
-                    <i class="fa fa-shopping-cart text-red"></i> La ultima venta ha exedido el limite en la cuenta: <%=os.nombre%>. Click para ir a las Ventas y reveer la situacion! 
-                  </a>
-                </li>
-                <% end %>
-              </ul>
-          </ul>
-        </li>
+        <%= render 'shared/menu_notifications' %>
         <% if user_signed_in? %>
         <!-- User Account Menu -->
         <li class="dropdown">
