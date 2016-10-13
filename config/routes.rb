@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resources :finances
   resources :movements
   get 'home/index'
+  get 'statistics/index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

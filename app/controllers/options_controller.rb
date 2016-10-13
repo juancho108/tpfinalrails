@@ -63,10 +63,12 @@ class OptionsController < ApplicationController
 
   def resetear_cuentas_ml
     OriginSale.resetear_cuentas
+    redirect_to "/options/1/edit", notice:"Cuentas de ML actualizadas con exito"
   end
 
   def actualizar_valor_dolar
     Option.actualizar_valor_dolar
+    redirect_to "/options/1/edit", notice:"Dolar actualizado con exito"
   end
 
   private
