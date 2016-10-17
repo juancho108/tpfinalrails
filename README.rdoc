@@ -169,3 +169,7 @@ si el precio de venta de una copia en ML (que tiene que saber dond está publica
 hacer el SHOW de Sales con todos los datos de una venta en particular(hecho)
 
 -arreglar ancho de dropdown en notificaciones
+
+- Arreglar botones del SHOW (hecho)
+- Arreglar boton de volver rojo en no me cuerdo donde
+- Arreglar modificar de movements (hecho)

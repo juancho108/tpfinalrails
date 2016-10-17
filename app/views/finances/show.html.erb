@@ -10,5 +10,6 @@
   <%= @finance.dinero %>
 </p>
 
-<%= link_to 'Edit', edit_finance_path(@finance) %> |
-<%= link_to 'Back', finances_path %>
+<%= link_to 'Editar', edit_finance_path(@finance), class: 'btn btn-warning' %> |
+<%= link_to 'Volver', finances_path, class: 'btn btn-primary' %>
+

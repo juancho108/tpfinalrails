@@ -27,7 +27,7 @@
 
 <p>
   <strong>Fecha operacion:</strong>
-  <%= @movement.fecha_operacion %>
+  <%= @movement.created_at %>
 </p>
 
 <p>
@@ -35,5 +35,8 @@
   <%= @movement.detalles_adicionales %>
 </p>
 
-<%= link_to 'Edit', edit_movement_path(@movement) %> |
-<%= link_to 'Back', movements_path %>
+
+<%= link_to 'Editar', edit_movement_path(@movement), class: 'btn btn-warning' %> |
+<%= link_to 'Volver', movements_path, class: 'btn btn-primary' %>
+
+

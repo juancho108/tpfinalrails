@@ -36,8 +36,8 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
     #Si era un egreso con un destino, se genera un movimiento "Ingreso" Automático.
     if (movement.tipo_operacion == 'Egreso') && (movement.destino)
       Movement.create operacion: movement.operacion+ " (autom.)", tipo_operacion: "Ingreso", monto_neto: movement.monto_neto.abs, origen_id: movement.destino_id, fecha_operacion: DateTime.now, persona: user.nombre+" "+user.apellido, socio_id: movement.id
-      movement.destino.dinero -= movement.monto_neto
-      movement.destino.save
+      movement.hijo.origen.dinero -= movement.monto_neto
+      movement.hijo.origen.save
     end
   end
 
@@ -49,13 +49,23 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
   end
 
   def self.verificar_monto_bruto movement
-    #verifico con los descuentos
+    #verifico si al ser una venta, proviene de una cuenta MP y realizo los descuentos
     if movement.origen.tipo_mp
       descuento = (movement.monto_bruto*Option.first.porcentaje_mercadopago)/100
       neto = movement.monto_bruto - descuento
       movement.update(monto_neto: neto) 
     else
       movement.update(monto_neto: movement.monto_bruto)
+    end
+  end
+
+  def self.editar_movimientos_de_dinero movement, user
+    
+    Movement.sumar_dinero movement
+    
+    if movement.hijo #si tiene un movimiento automatico asociado, lo actualizo tmb
+      movement.hijo.destroy
+      Movement.verificar_ingreso movement, user
     end
   end
 end

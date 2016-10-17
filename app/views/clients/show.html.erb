@@ -15,5 +15,6 @@
   <%= @client.detalle_adicional %>
 </p>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+<%= link_to 'Editar', edit_client_path(@client), class: 'btn btn-warning' %> |
+<%= link_to 'Volver', clients_path, class: 'btn btn-primary' %>
+

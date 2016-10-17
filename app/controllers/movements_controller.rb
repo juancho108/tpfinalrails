@@ -56,11 +56,16 @@ class MovementsController < ApplicationController
   def update
     authorize @movement
     respond_to do |format|
-      
+
+      if @movement.tipo_operacion != "Venta"
+        Movement.revertir @movement
+      end
       if @movement.update(movement_params.merge(persona: current_user.nombre+" "+current_user.apellido))
         if @movement.tipo_operacion == "Venta"
           Movement.verificar_monto_bruto(@movement)
           format.html { redirect_to movements_sale_path(@movement.sale_id), notice: 'Movimiento modificado con exito.' }
+        else
+          Movement.editar_movimientos_de_dinero(@movement, current_user)
         end
         format.html { redirect_to @movement, notice: 'Movimiento modificado con exito.' }
         format.json { render :show, status: :ok, location: @movement }
@@ -94,3 +99,4 @@ class MovementsController < ApplicationController
       params.require(:movement).permit(:operacion, :tipo_operacion, :origen_id, :destino_id, :persona, :monto_neto, :monto_bruto, :fecha_operacion, :detalles_adicionales, :id)
     end
 end
+

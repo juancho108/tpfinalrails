@@ -9,6 +9,8 @@ class Sale < ActiveRecord::Base
   belongs_to :usuario, :class_name => 'User', :foreign_key => 'usuario_id'
   has_many :movements, :class_name => 'Movement', dependent: :destroy
 
+  # methods
+  
   def self.crear_venta params, copy, user
 
     #creo nuevo Cliente
