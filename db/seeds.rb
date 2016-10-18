@@ -12,7 +12,7 @@ User.create(email: "dariogabalec@gmail.com ", password:"tiempoa13", password_con
 User.create(email: "marianofrias@gmail.com ", password:"mariano1", password_confirmation: "mariano1", role: 0, nombre: "Mariano", apellido: "Frias")
 
 #Opciones
-Option.create(skin: "blue")
+Option.create(skin: "blue", dolar_libre: 15.38 , dolar_blue: 15.55 , porcentaje_mercadolibre: 10, porcentaje_mercadopago: 10, porcentaje_ml_mp: 8.9 )
 
 #Categorias
 Category.create(nombre: "Tablets")
@@ -71,9 +71,9 @@ consolas.hijos.create(nombre: "Nintendo")
 consolas.hijos.create(nombre: "Microsoft")
 
 #Origin Sales
-OriginSale.create(nombre: "ML Maxi", tipo: true)
+OriginSale.create(nombre: "ML Maxi", tipo: true, monto_bruto: 8000, monto_neto: 8000)
 OriginSale.create(nombre: "ML Nelida", tipo: true)
-OriginSale.create(nombre: "ML Dario", tipo: true)
+OriginSale.create(nombre: "ML Dario", tipo: true, monto_bruto: 19000, monto_neto: 19000)
 OriginSale.create(nombre: "ML Cristina", tipo: true)
 OriginSale.create(nombre: "ML Norma", tipo: true)
 OriginSale.create(nombre: "ML Fabian", tipo: true)
