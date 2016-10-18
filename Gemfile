@@ -43,6 +43,7 @@ gem 'devise'
 
 #gema de permisos
 gem 'pundit'
+
 #gema que crea un cliente rest para la API
 gem 'rest-client'
 

@@ -5,171 +5,22 @@ It's a AdminLTE skeleton
 Rails v4.2.1
 AdminLTE v2.1.1
 
-Usar: https://github.com/chukcha-wtf/adminlte-generators
+Digital Step - Administracion
 
+Instrucciones: 
 
-- cosa blanca del estilo - resuelto - turbolinks
+1) Una vez creada la base, cargar SEEDS para de esta forma, tener usuarios habilitados y datos de prueba.
+2) El usuario Administrador es:
+								mail:  jjf108@gmail.com
+								pass:  administrador1
 
-- rutas encadenadas - resuelto 
-{routes.rb encadenar las rutas ahi como product - copies
-luego las rutas cambian asique en el index de copies arreglar las nuevas rutas ya que ahora suelta no existe mas
-rake routes para verlas y grep para buscar "copies"
-luego ir jugando ahsta que macheen y problema resuelto}
+	El usuario Vendedor es:
+								mail:  marianofrias@gmail.com
+								pass:  vendedor1
 
+	El usuario Publicador es:
+								mail:  dariogabalec@gmail.com
+								pass:  publicador1
 
-- redirigir despues de crear
+3) Una vez logueado, revisar en la solapa: OPTIONS, que todo tenga datos, para realizar el uso correcto de la aplicacion.
 
-- login idea 
-
-========================
-Aclaraciones: 
-
-Origin_sales: monto bruto lleva la cuenta de cuanto se va acumulando sin descuentos, en cambio neto, es con los descuentos hechos ya.
-
-
-
-precio de compra en dls. Y precio de venta en pesos se divide por cotiz del dolar actual y me da el monto en dolares para calcular la ganancia.
-
-Precio bruto : monto original en pesos por la venta que se concretó (sirve pra llevar cuenta de la guita que hay en cada cuenta)
-
-Movimientos: si la operacion es un egreso y tiene algo como DESTINO (noblanco), se genera un ingreso automatico.
-Egreso banco dario - efectivo dario .......... egreso mp dario a banco dario
-
-
-
-Comisiones distintas, mercadolibre con mercado pago, que mercado pago solo. (para calcular precio neto)
-
-
-PREGUNTAS PACO:
-
-
-
-11% para mercadolibre carga a mano
-
-
-
-mp = 4.95
-
-==============================
-Nuevas Tareas:
-
--- columna nueva en index-product para mostrar el hisorial de cada uno.
-
--revisar si cambia de cancelada a concretada si el producto ya no está vendido
-
--Arreglar Tema del dolar con clase configuracion que incluirá porcentajesde ML etc...
-
-Boton vender en copias debe ser Confirmar o Cancelar Venta (hecho)
-
--Agregar Validaciones!
-
--Agregar rutitas en los forms al costadito onda: Tecnologia >> Celulares >> Samsung Galaxy S7
-
--Revisar vistas por los tabs. quizá el ROW inicial sea la clave
-
-Revisar Stock simple y complejo (update) y forms sin helpers de rails (hecho)
-
-comenzar a crear policies
-
--Arreglar Listado de Usuarios online. Columna de ultimo logueo no guarda
-
-
-
-agregar botoon volver a Stock simple y complejo (hecho)
-
--si editas cuenta ml, arreglar montos en las otras clases (esto en una venta)
-
-crear estado "venta anulada" . igual q destruida pero mantiene los datos en la tabla de ventas
-
-verificar caso de concretada a pendiente
-
-ventas se pueden pagar en 2 formas, una se asienta normal cuando se genera la nueva venta, y la otra se asietna en un movimiento, entonces necesito que el movimiento esté enlazado a la venta porque si luego genero 1 movimiento para asentar la parte restante del pago, tengo que saber a q venta pertenece para calcular la ganancia.
-
--arreglar en cuando creo una venta la parte de calcular ganancia y precio bruto y neto
-
- alert dissmisseable (hecho)
-
-Historial:
-cuenta_ml = objeto
-estado: publicado, pausado, finalizado
-orden: integer
-
-" LAS VENTAS TIENEN CANTIDAD DE PAGOS QUE GENERARÁN LOS MOVIMIENTOS NECESARIOS QUE SE IRÁN COMPLETANDO LUEGO"
-arreglar los movementes, porque si son VENTAS, deben hacer ciertas cosas como los descuentos etc.
-
-JAVASCRIPT - SI SELECCIONA PAGO PARCIAL APARECEN LOS IMPUT CON LOS VALORES O BIEN SI SELECCIONA LA CANTIDAD DE PAGOS
-SE SELECCIONA AUTOMATICAMENTE EL ESTADO "PAGO PARCIAL"
-
--Arreglar NOMBRE diferente en movements y venta
-
-
-CONSULTAR A FRAN: 
-
-
-SACAR SCAFFOLDS.SCSS -> PARAL OS BUTTONS
-
-1) como itero y me quedo con los precios_netos que no son nil para que cuando todos esten hechos, pueda mostrar el boton CERRAR VENTA en movements.html.erb? (hecho)
-
-2) proceso en background para guardar en la BD el valor dolar de la api (hecho)
-
-3)github problem (hecho)
-
-CONSULTAR A DARIO:
-
- - Instruccion: si al cargar la venta se confunden en el importe, antes de editarla, hay que cancelarla. Sino
- mucha logica para los numeros.
-
- cuando creas una venta y te pagan en 2 partes, 50% ml y 50% en efectivo. Como referenciar a la venta que falta en efectivo?
- rta: ESTADO NUEVO: "PAGO PARCIAL"
- Creacion de un boton adicional (caso que exista este estado) que genera un nuevo movimiento para asentar la venta ! 
- Esto solo ocurre en Pagina DS, u OTROS
-
--------------SI SE ASIENTA UNA VENTA CON 3 FORMAS DE PAGO, Y LAS QUE FALTAN SON TIPO MP, COMO CALCULAR MONTO NETO ? ---------
-Agregar un nuevo campo 'monto_bruto' en movements que solo va a ser usado en caso de que la venta sea en varios pagos.
-De esta forma una persoan carga los pagos por separado y por cada pago (movement) calcula el neto en base a los descuentos seteados en la pagina.
-Una vez todo cargado genera un precio bruto para la venga y un precio neto final para la venta, con lo cual podrá
-calcular la ganancia.
-
-
-Clase Configuracion: 
-
-dolar
-porcentaje mercadolibre
-porcentaje mercadopago
-porcentaje ml_mp
-
-
-
-#########################################
-Tarea en crontab del dolar
-
-crontab -l
-
-#0 */1 * * *  cd /home/juan/Escritorio/tpfinalrailsdigitalstep && rake external:dolar
-
-cada 1 hora verifica el dolar 
-
-
-###########################
-
--Arreglar function FINANCE de actualziar caja porq paso un ID al pedo
-verificar una venta en pagos parciales
-
-verificar permisos y botones
-
-verificar editar copia (hecho)
-precio bruto inhabilitado al volver a 1 pago (hecho)
-
-funcion que al setear un determinado dia del mes para cada cuenta ML, cuando llega el dia, pone el bruto en 0
-
-si el bruto de ml se pasa de 20.000 crear alerta ! 
-
-si el precio de venta de una copia en ML (que tiene que saber dond está publicada) sumado a el precio bruto de la cuenta actual , da mas de 20.000, crear alerta.
-
-hacer el SHOW de Sales con todos los datos de una venta en particular(hecho)
-
--arreglar ancho de dropdown en notificaciones
-
-- Arreglar botones del SHOW (hecho)
-- Arreglar boton de volver rojo en no me cuerdo donde
-- Arreglar modificar de movements (hecho)

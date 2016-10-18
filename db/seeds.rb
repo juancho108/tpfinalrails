@@ -7,9 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 #Usuarios
-User.create(email: "jjf108@gmail.com ", password:"arsenal1", password_confirmation: "arsenal1", role: 2, nombre: "Juan", apellido: "Ferreyra")
-User.create(email: "dariogabalec@gmail.com ", password:"tiempoa13", password_confirmation: "tiempoa13", role: 1, nombre: "Dario", apellido: "Gabalec")
-User.create(email: "marianofrias@gmail.com ", password:"mariano1", password_confirmation: "mariano1", role: 0, nombre: "Mariano", apellido: "Frias")
+User.create(email: "jjf108@gmail.com ", password:"administrador1", password_confirmation: "administrador1", role: 2, nombre: "Juan", apellido: "Ferreyra")
+User.create(email: "dariogabalec@gmail.com ", password:"publicador1", password_confirmation: "publicador1", role: 1, nombre: "Dario", apellido: "Gabalec")
+User.create(email: "marianofrias@gmail.com ", password:"vendedor1", password_confirmation: "vendedor1", role: 0, nombre: "Mariano", apellido: "Frias")
 
 #Opciones
 Option.create(skin: "blue", dolar_libre: 15.38 , dolar_blue: 15.55 , porcentaje_mercadolibre: 10, porcentaje_mercadopago: 10, porcentaje_ml_mp: 8.9 )
