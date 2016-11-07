@@ -58,9 +58,9 @@
                 </td>
                 <td>
                   <% if product.tipo_stock == 'Stock Simple' %>
-                    <button class="btn  btn-success" type="button" onclick='location.href="/products/<%=product.id%>/stock_simple" '>Cargar Stock Simple</button>
+                    <button class="btn  btn-success" type="button" onclick='location.href="/products/<%=product.id%>/copies/new" '>Cargar Stock Simple</button>
                   <% else %>
-                  <button class="btn bg-olive" type="button" onclick='location.href="/products/<%=product.id%>/stock_complejo" '>Cargar Stock Complejo</button>
+                  <button class="btn bg-olive" type="button" onclick='location.href="/products/<%=product.id%>/copies/new" '>Cargar Stock Complejo</button>
                   <% end -%>
                 </td>
                 <td>

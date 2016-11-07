@@ -17,10 +17,10 @@
     </div>
     <div class="col-sm-4">
       <% if @product.tipo_stock == 'Stock Simple' %>
-        <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_simple" '><span class="glyphicon glyphicon-plus
+        <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/copies/new" '><span class="glyphicon glyphicon-plus
 "></span> Cargar Stock Simple</button>
       <% else %>
-      <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/stock_complejo" '><span class="glyphicon glyphicon-plus
+      <button class="btn btn-block btn-success btn-lg" type="button" onclick='location.href="/products/<%=@product.id%>/copies/new" '><span class="glyphicon glyphicon-plus
 "></span> Cargar Stock Complejo</button>
       <% end -%>
     </div>

@@ -30,15 +30,21 @@ class CopiesController < ApplicationController
   # POST /copies
   # POST /copies.json
   def create
-    @copy = @product.copias.new(copy_params)
 
+    @copy = Copy.new(copy_params.merge(estado_del_producto: "En Stock", product_id: params[:product_id]))
     respond_to do |format|
       if @copy.save
-        format.html { redirect_to [@product, @copy], notice: 'Item creada con exito.' }
-        format.json { render :show, status: :created, location: @copy }
+        if params[:cantidad]
+          (params[:cantidad].to_i - 1).to_i.times do |i|
+            @copy = Copy.create(copy_params.merge(estado_del_producto: "En Stock", product_id: params[:product_id]))
+          end
+          format.html { redirect_to product_copies_path(@product), notice: 'Stock creado con exito.' }
+        end
+        format.html { redirect_to new_product_copy_path(@product), notice: 'Stock creado con exito.' }
+        format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
-        format.json { render json: @copy.errors, status: :unprocessable_entity }
+        format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,12 +82,6 @@ class CopiesController < ApplicationController
     #crear nueva venta en el modelo , despeja el controlaor
     Sale.crear_venta(params, @copy, current_user)
     
-      
-    begin
-    rescue
-     # redirect_to sales_path, notice: 'Hubo un error creando la venta'
-    end
-
     redirect_to sales_path, notice: 'Venta creada con exito'
   end
 
@@ -93,7 +93,7 @@ class CopiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def copy_params
-      params.require(:copy).permit(:lugar, :precio_compra, :packaging, :estado_del_producto, :estado, :nro_serie, :descripcion, :forma_de_pago_id)
+      params.require(:copy).permit(:lugar, :precio_compra, :packaging, :estado_del_producto, :estado, :nro_serie, :descripcion, :forma_de_pago_id, :product_id)
     end
 
     def load_product

@@ -1,4 +1,6 @@
 class Copy < ActiveRecord::Base
+  attr_accessor :cantidad
+  
   # associations
   belongs_to :producto, :class_name => 'Product', :foreign_key => 'product_id'
   has_many :fotos, :class_name => 'Picture'
