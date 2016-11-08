@@ -20,6 +20,7 @@ class CopiesController < ApplicationController
   # GET /copies/new
   def new
     @copy = @product.copias.new
+    @cantidad = 1
   end
 
   # GET /copies/1/edit
@@ -43,6 +44,7 @@ class CopiesController < ApplicationController
         format.html { redirect_to new_product_copy_path(@product), notice: 'Stock creado con exito.' }
         format.json { render :show, status: :created, location: @category }
       else
+        @cantidad = params[:cantidad]
         format.html { render :new }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
