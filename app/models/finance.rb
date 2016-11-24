@@ -11,9 +11,8 @@ class Finance < ActiveRecord::Base
   
   #methods
   #
-  def self.actualizar_caja caja_id, monto
-    f = Finance.find(caja_id)
-    f.dinero+= monto
-    f.save
+  def actualizar_caja monto
+    self.dinero+= monto
+    self.save
   end
 end

@@ -39,9 +39,9 @@ class MovementsController < ApplicationController
 
     respond_to do |format|
       if @movement.save
-        Movement.sumar_dinero @movement
+        @movement.sumar_dinero 
         
-        Movement.verificar_ingreso @movement, current_user
+        @movement.verificar_ingreso current_user
         format.html { redirect_to @movement, notice: 'Movimiento creado con exito.' }
         format.json { render :show, status: :created, location: @movement }
       else
@@ -58,14 +58,14 @@ class MovementsController < ApplicationController
     respond_to do |format|
 
       if @movement.tipo_operacion != "Venta"
-        Movement.revertir @movement
+        @movement.revertir 
       end
       if @movement.update(movement_params.merge(persona: current_user.nombre+" "+current_user.apellido))
         if @movement.tipo_operacion == "Venta"
-          Movement.verificar_monto_bruto(@movement)
+          @movement.verificar_monto_bruto
           format.html { redirect_to movements_sale_path(@movement.sale_id), notice: 'Movimiento modificado con exito.' }
         else
-          Movement.editar_movimientos_de_dinero(@movement, current_user)
+          @movement.editar_movimientos_de_dinero current_user
         end
         format.html { redirect_to @movement, notice: 'Movimiento modificado con exito.' }
         format.json { render :show, status: :ok, location: @movement }
@@ -80,7 +80,7 @@ class MovementsController < ApplicationController
   # DELETE /movements/1.json
   def destroy
     authorize @movement
-    Movement.revertir @movement
+    @movement.revertir 
     @movement.destroy
     respond_to do |format|
       format.html { redirect_to movements_url, notice: 'Movimiento borrado con exito. El dinero se ha regresado con exito' }

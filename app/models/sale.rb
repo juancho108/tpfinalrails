@@ -34,7 +34,7 @@ class Sale < ActiveRecord::Base
   def self.anular_venta sale
     sale.update estado: "Cancelada"
     sale.copia.update estado_del_producto: "En Stock"
-    OriginSale.actualizar_origen_de_la_venta( (sale.precio_bruto* -1), (sale.precio_neto* -1), sale.origin_sale)
+    sale.origin_sale.actualizar_origen_de_la_venta( (sale.precio_bruto* -1), (sale.precio_neto* -1))
     #verificar
     Sale.revertir_finance(sale)
   end
@@ -55,10 +55,10 @@ class Sale < ActiveRecord::Base
     sale.update(ganancia: ganancia)
 
     #actualiza la caja con el dinero ingresado
-    Finance.actualizar_caja(sale.forma_de_pago_id, sale.precio_neto)
+    sale.forma_de_pago.actualizar_caja(sale.precio_neto)
 
     #actualiza montos de origen de la venta (quede pendiente o no, en caso de no ser confirmada se restan)
-    OriginSale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto, sale.origin_sale)
+    sale.origin_sale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto)
 
     #verificar si excede el monto limite de ML
     OriginSale.verificar_tope_mercado_libre
@@ -73,7 +73,7 @@ class Sale < ActiveRecord::Base
     sale.update(precio_neto: precio_neto)
 
     #actualiza el origen de la venta
-    OriginSale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto, sale.origin_sale)
+    sale.origin_sale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto)
 
     #verifica si se pasa del monto tope para cuentas de ml
     OriginSale.verificar_tope_mercado_libre
@@ -106,7 +106,7 @@ class Sale < ActiveRecord::Base
     sale.update(ganancia: ganancia)
 
     #actualiza la caja con el dinero ingresado
-    Finance.actualizar_caja(sale.forma_de_pago_id, sale.precio_neto)
+    sale.forma_de_pago.actualizar_caja(sale.precio_neto)
   end
   
   def self.acciones_venta_concretada_desde_pago_parcial sale, user
@@ -117,7 +117,7 @@ class Sale < ActiveRecord::Base
     sale.copia.update estado_del_producto: "Vendido"
     #actualizo las cajas en base a los movimientos de la venta
     sale.movements.each do |m|
-      Finance.actualizar_caja(m.origen_id, m.monto_neto)
+      m.origen.actualizar_caja(m.monto_neto)
     end
   end
 
@@ -130,7 +130,7 @@ class Sale < ActiveRecord::Base
       else # sale.estado == "Pendiente"
         sale.copia.update estado_del_producto: "Reservado"
       end
-      OriginSale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto, sale.origin_sale_id)      
+      sale.origin_sale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto)      
     elsif estado_anterior == "Concretada"
       #revertir montos en Finance y Eliminar todos los movements de esa venta
       if sale.estado == "Pendiente"
@@ -140,7 +140,7 @@ class Sale < ActiveRecord::Base
         #recuperar estado de copy como"En Stock"
         sale.copia.update(estado_del_producto: "En Stock")
         #revertir montos en OriginSale correspondiente
-        OriginSale.actualizar_origen_de_la_venta( (sale.precio_bruto* -1), (sale.precio_neto* -1), sale.origin_sale_id)
+        sale.origin_sale.actualizar_origen_de_la_venta( (sale.precio_bruto* -1), (sale.precio_neto* -1))
       end
       Sale.revertir_finance(sale)
       sale.movements.delete_all #elimino los movimientos
@@ -150,7 +150,7 @@ class Sale < ActiveRecord::Base
   def self.revertir_finance sale
     #descuenta de la CAJA correspondiente el valor sumado anteriormente
     sale.movements.each do |m|
-      Finance.actualizar_caja(m.origen_id, (m.monto_neto* -1))
+      m.origen.actualizar_caja(m.monto_neto* -1)
     end
   end
 

@@ -17,18 +17,10 @@ class OriginSale < ActiveRecord::Base
 
   #methods
   #
-  def self.actualizar_origen_de_la_venta precio_bruto, precio_neto, origin_sale
-    origin_sale.monto_bruto += precio_bruto
-    origin_sale.monto_neto += precio_neto
-    origin_sale.save
-  end
-
-  def self.verificar_tope_mercado_libre sale
-    if sale.origin_sale.tipo?
-      if sale.origin_sale.monto_bruto > Option.first.limite
-        #redirect_to root_path, alert: "CON ESTA VENTA SE EXCEDEN LOS $20.000 DE LA CUENTA #{sale.origin_sale.nombre}. Por favor reveer la situación." }
-      end
-    end
+  def self.actualizar_origen_de_la_venta precio_bruto, precio_neto
+    self.monto_bruto += precio_bruto
+    self.monto_neto += precio_neto
+    self.save
   end
 
   def self.verificar_tope_mercado_libre 

@@ -22,50 +22,49 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
 
 #Methods
 #
-  def self.sumar_dinero movement
-    movement.origen.dinero += movement.monto_neto
-    movement.origen.save
+  def sumar_dinero 
+    self.origen.dinero += self.monto_neto
+    self.origen.save
   end
 
-  def self.restar_dinero movement
-    movement.origen.dinero -= movement.monto_neto
-    movement.origen.save
+  def restar_dinero 
+    self.origen.dinero -= self.monto_neto
+    self.origen.save
   end
 
-  def self.verificar_ingreso movement, user
+  def verificar_ingreso user
     #Si era un egreso con un destino, se genera un movimiento "Ingreso" Automático.
-    if (movement.tipo_operacion == 'Egreso') && (movement.destino)
-      Movement.create operacion: movement.operacion+ " (autom.)", tipo_operacion: "Ingreso", monto_neto: movement.monto_neto.abs, origen_id: movement.destino_id, fecha_operacion: DateTime.now, persona: user.nombre+" "+user.apellido, socio_id: movement.id
-      movement.hijo.origen.dinero -= movement.monto_neto
-      movement.hijo.origen.save
+    if (self.tipo_operacion == 'Egreso') && (self.destino)
+      Movement.create operacion: self.operacion+ " (autom.)", tipo_operacion: "Ingreso", monto_neto: self.monto_neto.abs, origen_id: self.destino_id, fecha_operacion: DateTime.now, persona: user.nombre+" "+user.apellido, socio_id: self.id
+      self.hijo.origen.dinero -= self.monto_neto
+      self.hijo.origen.save
     end
   end
 
-  def self.revertir movement
-    Movement.restar_dinero(movement)
-    if (movement.destino)
-      Movement.restar_dinero(movement.hijo)
+  def revertir
+    self.restar_dinero
+    if (self.destino)
+      self.hijo.restar_dinero
     end
   end
 
-  def self.verificar_monto_bruto movement
+  def verificar_monto_bruto
     #verifico si al ser una venta, proviene de una cuenta MP y realizo los descuentos
-    if movement.origen.tipo_mp
-      descuento = (movement.monto_bruto*Option.first.porcentaje_mercadopago)/100
-      neto = movement.monto_bruto - descuento
-      movement.update(monto_neto: neto) 
+    if self.origen.tipo_mp
+      descuento = (self.monto_bruto*Option.first.porcentaje_mercadopago)/100
+      neto = self.monto_bruto - descuento
+      self.update(monto_neto: neto) 
     else
-      movement.update(monto_neto: movement.monto_bruto)
+      self.update(monto_neto: self.monto_bruto)
     end
   end
 
-  def self.editar_movimientos_de_dinero movement, user
-    
-    Movement.sumar_dinero movement
-    
-    if movement.hijo #si tiene un movimiento automatico asociado, lo actualizo tmb
-      movement.hijo.destroy
-      Movement.verificar_ingreso movement, user
+  def editar_movimientos_de_dinero user
+    self.sumar_dinero 
+    if self.hijo #si tiene un movimiento automatico asociado, lo actualizo tmb
+      self.hijo.destroy
+      self.verificar_ingreso user
     end
   end
+
 end

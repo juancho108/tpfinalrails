@@ -5,7 +5,7 @@ class OriginSalesController < ApplicationController
   # GET /origin_sales
   # GET /origin_sales.json
   def index
-    @origin_sales = OriginSale.all
+    @origin_sales = OriginSale.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /origin_sales/1
