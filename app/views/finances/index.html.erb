@@ -61,6 +61,7 @@
               </tr>
             </tfoot>
           </table>
+          <%= will_paginate @finances, renderer: BootstrapPagination::Rails %>
         </div>
       </div>
     </div>
@@ -68,13 +69,13 @@
 </div>
 <script>
   $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
+    $("#example2").DataTable();
+    $('#example1').DataTable({
+      "paging": false,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
-      "info": true,
+      "info": false,
       "autoWidth": false
     });
   });

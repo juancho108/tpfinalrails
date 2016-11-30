@@ -16,7 +16,7 @@ class Product < ActiveRecord::Base
     producto = []
     Product.all.each do |p|
       if !p.registros.empty?  
-        if (((p.registros.last.precio_venta + p.registros.last.cuenta_ml.monto_bruto) > Option.first.limite) && (p.registros.last.estado == "publicado"))
+        if (((p.registros.last.precio_venta + p.registros.last.cuenta_ml.monto_bruto) > Option.instance.limite) && (p.registros.last.estado == "publicado"))
           producto.push p
         end
       end

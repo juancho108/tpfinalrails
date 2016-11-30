@@ -7,8 +7,7 @@ class CopiesController < ApplicationController
   # GET /copies
   # GET /copies.json
   def index
-    @copies = @product.copias.all.select{|c| c.estado_del_producto != "Vendido"}
-    #@copies = Copy.all
+    @copies = Copy.where("product_id = ? AND estado_del_producto != ?", @product.id, 'Vendido').paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /copies/1
@@ -36,9 +35,7 @@ class CopiesController < ApplicationController
     respond_to do |format|
       if @copy.save
         if params[:cantidad]
-          (params[:cantidad].to_i - 1).to_i.times do |i|
-            @copy = Copy.create(copy_params.merge(estado_del_producto: "En Stock", product_id: params[:product_id]))
-          end
+          @copy.verificar_stock_simple(params[:cantidad], copy_params)
           format.html { redirect_to product_copies_path(@product), notice: 'Stock creado con exito.' }
         end
         format.html { redirect_to new_product_copy_path(@product), notice: 'Stock creado con exito.' }
@@ -77,6 +74,7 @@ class CopiesController < ApplicationController
   end
 
   def sale
+    @sale = Sale.new
     #muestra form para crear la venta de una copia
   end
 

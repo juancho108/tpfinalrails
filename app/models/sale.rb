@@ -34,7 +34,7 @@ class Sale < ActiveRecord::Base
   def self.anular_venta sale
     sale.update estado: "Cancelada"
     sale.copia.update estado_del_producto: "En Stock"
-    sale.origin_sale.actualizar_origen_de_la_venta( (sale.precio_bruto* -1), (sale.precio_neto* -1))
+    sale.origin_sale.actualizar_origen_de_la_venta((sale.precio_bruto* -1), (sale.precio_neto* -1))
     #verificar
     Sale.revertir_finance(sale)
   end
@@ -164,7 +164,7 @@ class Sale < ActiveRecord::Base
   end
 
   def self.calcular_ganancia sale
-    dolar = Option.first.dolar_libre.to_f
+    dolar = Option.instance.dolar_libre.to_f
     dinero_acumulado =  sale.movements.inject(0) do |total,m|
                            total + m.monto_neto
                         end
@@ -174,11 +174,11 @@ class Sale < ActiveRecord::Base
 
   def self.calcular_precio_neto sale
     if (sale.origin_sale.tipo?) && (sale.forma_de_pago.tipo_mp?) #es Mercadolibre y Mercadopago
-      porcentaje_descuento = Option.first.porcentaje_ml_mp
+      porcentaje_descuento = Option.instance.porcentaje_ml_mp
     elsif (sale.origin_sale.tipo?) #es Solo Mercadolibre
-      porcentaje_descuento = Option.first.porcentaje_mercadolibre
+      porcentaje_descuento = Option.instance.porcentaje_mercadolibre
     elsif (sale.forma_de_pago.tipo_mp?) #es tipo Mercadopago
-      porcentaje_descuento = Option.first.porcentaje_mercadopago
+      porcentaje_descuento = Option.instance.porcentaje_mercadopago
     else #no es nada anterior
       return sale.precio_bruto
     end

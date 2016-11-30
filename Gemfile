@@ -46,7 +46,13 @@ gem 'pundit'
 
 #gema que crea un cliente rest para la API
 gem 'rest-client'
+
+#paginador
 gem 'will_paginate', '~> 3.1.0'
+
+#estilo para will_paginate bootstrap
+gem 'will_paginate-bootstrap'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

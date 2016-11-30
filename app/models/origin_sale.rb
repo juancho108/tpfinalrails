@@ -17,7 +17,7 @@ class OriginSale < ActiveRecord::Base
 
   #methods
   #
-  def self.actualizar_origen_de_la_venta precio_bruto, precio_neto
+  def actualizar_origen_de_la_venta precio_bruto, precio_neto
     self.monto_bruto += precio_bruto
     self.monto_neto += precio_neto
     self.save
@@ -26,7 +26,7 @@ class OriginSale < ActiveRecord::Base
   def self.verificar_tope_mercado_libre 
     cuenta = []
     OriginSale.all.each do |os|
-      if os.monto_bruto > Option.first.limite
+      if os.monto_bruto > Option.instance.limite
         cuenta.push os
       end
     end

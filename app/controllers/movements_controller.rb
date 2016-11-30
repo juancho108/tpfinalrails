@@ -5,7 +5,7 @@ class MovementsController < ApplicationController
   # GET /movements
   # GET /movements.json
   def index
-    @movements = Movement.all
+    @movements = Movement.order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
     authorize @movements
   end
 

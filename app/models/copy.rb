@@ -25,4 +25,12 @@ class Copy < ActiveRecord::Base
   #validando estado
   validates :estado, inclusion: { in: ['Nuevo', 'Open-Box', 'A-Refurb','D-Refurb', 'Fallado'],
     message: "El valor debe ser uno de los predefinidos" }
+
+  #methods 
+  def verificar_stock_simple cantidad, copy_params
+    (cantidad.to_i - 1).to_i.times do |i|
+       Copy.create(copy_params.merge(estado_del_producto: "En Stock", product_id: self.product_id))
+    end
+  end
+
 end

@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.png' %>
 </head> 
-<body <% if user_signed_in? %>class="skin-<%=Option.first.skin%> sidebar-mini" <% else %> class="skin-blue sidebar-mini sidebar-collapse" <% end %> id='bodyy' >
+<body <% if user_signed_in? %>class="skin-<%=Option.instance.skin%> sidebar-mini" <% else %> class="skin-blue sidebar-mini sidebar-collapse" <% end %> id='bodyy' >
   <div class="wrapper">
     <%= render partial: 'shared/header' %>
     <% if user_signed_in? %>

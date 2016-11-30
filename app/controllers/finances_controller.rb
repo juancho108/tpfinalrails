@@ -4,7 +4,7 @@ class FinancesController < ApplicationController
   # GET /finances
   # GET /finances.json
   def index
-    @finances = Finance.all
+    @finances = Finance.paginate(:page => params[:page], :per_page => 10)
     authorize @finances
   end
 

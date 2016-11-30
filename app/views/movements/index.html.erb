@@ -81,6 +81,7 @@
               </tr>
             </tfoot>
           </table>
+          <%= will_paginate @movements, renderer: BootstrapPagination::Rails %>
         </div>
       </div>
     </div>
@@ -89,12 +90,12 @@
 <script>
   $(function () {
     $('#example1').DataTable({
-      "paging": true,
-      "lengthChange": true,
+      "paging": false,
+      "lengthChange": false,
       "searching": true,
       "ordering": true,
-      "info": true,
-      "autoWidth": false,
+      "info": false,
+      "autoWidth": false
       "aaSorting": [[ 0, "desc" ]]
     });
   });

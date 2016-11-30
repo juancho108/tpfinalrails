@@ -1,0 +1,17 @@
+
+*Arreglar clase SALE
+* No implementa ningún test
+
+
+
+Observaciones:
+* No utiliza internacionalización. Los mensajes de los controllers están en inglés o en castellano porque se hardcodearon, no se usa i18n
+  * Los modelos validan y escriben mensajes en castellano. Debería usar i18n
+* metodos en castellano, no aprovecha Convention Over Configuration
+
+
+* La funcionalidad de ProductsController#create podría llevarse al modelo
+* La funcionalidad de SalesController#update podría llevarse al modelo
+* Estados manejados como strings. No escala nunca: ¿si quiero renombrar como se muestra un estado?
+  * Un requerimiento real podría ser que en vez de "Pago Parcial" sea "Pagado parcialmente". ¿Cómo lo cambio rápidamente?
+* Option es una suerte de singleton, y el valor del dolar es cambiante. Me parece una mala decisión guardarlo acá.. Se podría usar uan tabla con cotizaciones. Que la última sea la actual, y el resto la historia...

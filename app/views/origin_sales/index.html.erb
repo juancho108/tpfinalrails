@@ -75,14 +75,23 @@
               </tr>
             </tfoot>
           </table>
-          <%= will_paginate @posts %>
+          <%= will_paginate @origin_sales, renderer: BootstrapPagination::Rails %>
         </div>
       </div>
     </div>
   </div><!-- /.box-body -->
 </div>
-
-
-
-<br>
+<script>
+  $(function () {
+    $("#example2").DataTable();
+    $('#example1').DataTable({
+      "paging": false,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false
+    });
+  });
+</script>
 

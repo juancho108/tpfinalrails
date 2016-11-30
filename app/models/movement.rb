@@ -51,7 +51,7 @@ validates :tipo_operacion, inclusion: { in: ['Ajuste','Compra','Venta','Ingreso'
   def verificar_monto_bruto
     #verifico si al ser una venta, proviene de una cuenta MP y realizo los descuentos
     if self.origen.tipo_mp
-      descuento = (self.monto_bruto*Option.first.porcentaje_mercadopago)/100
+      descuento = (self.monto_bruto*Option.instance.porcentaje_mercadopago)/100
       neto = self.monto_bruto - descuento
       self.update(monto_neto: neto) 
     else

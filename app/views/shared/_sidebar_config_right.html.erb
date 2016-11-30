@@ -14,9 +14,9 @@
           <%if os.tipo == true%>
             <li>
               <a href="javascript::;">
-                <% if os.monto_bruto > Option.first.limite %>
+                <% if os.monto_bruto > Option.instance.limite %>
                   <i class="menu-icon fa fa-maxcdn bg-red"></i>
-                <% else os.monto_bruto < Option.first.limite %>
+                <% else os.monto_bruto < Option.instance.limite %>
                   <i class="menu-icon fa fa-maxcdn bg-green"></i>
                 <% end %>
 
