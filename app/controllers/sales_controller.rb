@@ -19,22 +19,27 @@ class SalesController < ApplicationController
 
   # GET /sales/new
   def new
-    @sale = Sale.new
+    @sale = Sale.new(copy_id: params[:copy].to_i)
+    @copy_id = params[:copy].to_i
   end
 
   # GET /sales/1/edit
   def edit
+    redirect_to sales_path, alert: "No se puede editar una venta por el momento"
     @client = @sale.cliente
   end
 
   # POST /sales
   # POST /sales.json
   def create
-    @sale = Sale.new(sale_params)
+    
+    @client = Client.create(client_params)
+    @sale = Sale.new(sale_params.merge(usuario: current_user, cliente: @client, copy_id: params[:copy_id]))
 
     respond_to do |format|
       if @sale.save
-        format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
+        @sale.verificar_estado
+        format.html { redirect_to sales_path, notice: 'Venta creada con exito.' }
         format.json { render :show, status: :created, location: @sale }
       else
         format.html { render :new }
@@ -72,7 +77,7 @@ class SalesController < ApplicationController
   # DELETE /sales/1.json
   def destroy
     #realiza acciones necesarias para anular la venta
-    Sale.anular_venta(@sale)
+    @sale.anular_venta
     @sale.destroy
     
     respond_to do |format|
@@ -84,7 +89,7 @@ class SalesController < ApplicationController
   def confirm_sale
 
     #realiza las acciones correspondientes al concretar una venta
-    Sale.acciones_venta_concretada_desde_pendiente(@sale, current_user)
+    @sale.acciones_venta_concretada_desde_pendiente
     
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'La Venta se ha registrado con Exito.' }
@@ -93,7 +98,7 @@ class SalesController < ApplicationController
 
   def cancel_sale
 
-    Sale.anular_venta(@sale)
+    @sale.anular_venta
     
     respond_to do |format|
       format.html { redirect_to sales_url, notice: 'La Venta se ha Cancelado con Exito.' }
@@ -102,7 +107,7 @@ class SalesController < ApplicationController
 
   def close_sale
     if @sale.movements.where('monto_neto > 0').count == @sale.movements.count
-      Sale.acciones_venta_concretada_desde_pago_parcial(@sale, current_user)
+      @sale.acciones_venta_concretada_desde_pago_parcial(current_user)
       respond_to do |format|
         format.html { redirect_to sales_url, notice: 'La Venta se ha concretado con Exito.' }
       end
@@ -131,7 +136,7 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:precio_bruto, :precio_neto, :forma_de_pago_id, :usuario_id, :ganancia, :copy_id, :client_id, :origin_sale_id, :estado)
+      params.require(:sale).permit(:precio_bruto, :precio_neto, :forma_de_pago_id, :usuario_id, :ganancia, :copy_id, :client_id, :origin_sale_id, :estado, :cantidad_de_pagos)
     end
 
     def client_params

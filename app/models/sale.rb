@@ -9,118 +9,114 @@ class Sale < ActiveRecord::Base
   belongs_to :usuario, :class_name => 'User', :foreign_key => 'usuario_id'
   has_many :movements, :class_name => 'Movement', dependent: :destroy
 
+
   # methods
   
-  def self.crear_venta params, copy, user
+  def verificar_estado 
 
-    #creo nuevo Cliente
-    cliente = Client.create nombre: params[:nombre], mail: params[:mail], detalle_adicional: params[:detalle]
-    
-    #creo la nueva venta
-    sale = Sale.create precio_bruto: params[:precio_bruto].to_f, forma_de_pago_id: params[:forma_de_pago_id], copy_id: copy.id, origin_sale_id: params[:origin_sale_id], cliente: cliente, estado: params[:estado], usuario: user, cantidad_de_pagos: params[:cantidad_de_pagos]      
-    
     #verifica el estado de la nueva venta y toma las acciones correspondientes  
-    if sale.estado == "Pendiente" 
+    if self.estado == "Pendiente" 
       #realiza las acciones correspondientes para una venta pendiente
-      Sale.acciones_venta_pendiente(sale, user)
-    elsif sale.estado == "Concretada"
+      self.acciones_venta_pendiente
+    elsif self.estado == "Concretada"
       #realiza las acciones correspondientes al concretar una venta
-      Sale.acciones_venta_concretada(sale, user)
-    else #params[:estado] == "Pago Parcial"
-      Sale.acciones_venta_pago_parcial(sale, user)
+      self.acciones_venta_concretada
+    else #self.estado == "Pago Parcial"
+      self.acciones_venta_pago_parcial
     end
   end
 
-  def self.anular_venta sale
-    sale.update estado: "Cancelada"
-    sale.copia.update estado_del_producto: "En Stock"
-    sale.origin_sale.actualizar_origen_de_la_venta((sale.precio_bruto* -1), (sale.precio_neto* -1))
+  def anular_venta
+    self.update estado: "Cancelada"
+    self.copia.update estado_del_producto: "En Stock"
+    self.origin_sale.actualizar_origen_de_la_venta((self.precio_bruto* -1), (self.precio_neto* -1))
     #verificar
-    Sale.revertir_finance(sale)
+    self.revertir_finance
   end
 
-  def self.acciones_venta_concretada sale, user 
+  def acciones_venta_concretada
     #actualizo el estado de la copia
-    sale.copia.update(estado_del_producto: "Vendido")
+    self.copia.update(estado_del_producto: "Vendido")
 
     #actualizo el precio neto de la venta
-    precio_neto = Sale.calcular_precio_neto(sale)
-    sale.update(precio_neto: precio_neto)
+    precio_neto = self.calcular_precio_neto
+    self.update(precio_neto: precio_neto)
    
     #crea un nuevo movimiento
-    Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", origen_id: sale.forma_de_pago_id, monto_neto: sale.precio_neto, fecha_operacion: DateTime.now, persona: user.nombre+' '+user.apellido, sale_id: sale.id    
+    Movement.create operacion: self.copia.producto.nombre, tipo_operacion: "Venta", origen_id: self.forma_de_pago_id, monto_neto: self.precio_neto, fecha_operacion: DateTime.now, persona: self.usuario.nombre+' '+self.usuario.apellido, sale_id: self.id    
     
     #actualizo la ganancia
-    ganancia = Sale.calcular_ganancia(sale)
-    sale.update(ganancia: ganancia)
+    ganancia = self.calcular_ganancia
+    self.update(ganancia: ganancia)
 
     #actualiza la caja con el dinero ingresado
-    sale.forma_de_pago.actualizar_caja(sale.precio_neto)
+    self.forma_de_pago.actualizar_caja(self.precio_neto)
 
     #actualiza montos de origen de la venta (quede pendiente o no, en caso de no ser confirmada se restan)
-    sale.origin_sale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto)
+    self.origin_sale.actualizar_origen_de_la_venta(self.precio_bruto, self.precio_neto)
 
     #verificar si excede el monto limite de ML
     OriginSale.verificar_tope_mercado_libre
   end
 
-  def self.acciones_venta_pendiente sale, user
+  def acciones_venta_pendiente
     #actualiza el estado de la copia
-    sale.copia.update(estado_del_producto: "Reservado")
+    self.copia.update(estado_del_producto: "Reservado")
     
     #actualiza el precio neto de la venta
-    precio_neto = Sale.calcular_precio_neto(sale)
-    sale.update(precio_neto: precio_neto)
+    precio_neto = self.calcular_precio_neto
+    self.update(precio_neto: precio_neto)
 
     #actualiza el origen de la venta
-    sale.origin_sale.actualizar_origen_de_la_venta(sale.precio_bruto, sale.precio_neto)
+    self.origin_sale.actualizar_origen_de_la_venta(self.precio_bruto, self.precio_neto)
 
     #verifica si se pasa del monto tope para cuentas de ml
     OriginSale.verificar_tope_mercado_libre
   end
 
-  def self.acciones_venta_pago_parcial sale, user
+  def acciones_venta_pago_parcial
     #actualiza el estado de la copia
-    sale.copia.update(estado_del_producto: "Reservado")
+    self.copia.update(estado_del_producto: "Reservado")
 
     #actualizo la forma de pago, en este caso tiene varias, por lo cual forma_de_pago_id es null
-    sale.update(forma_de_pago_id: nil)
+    self.update(forma_de_pago_id: nil)
     
     #quizá actualizar la caja: Finance.actualizar_caja(sale.forma_de_pago_id, sale.precio_neto)
-    (sale.cantidad_de_pagos).times do 
-      Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", sale_id: sale.id, monto_neto: 0.0, sale_id: sale.id
+    (self.cantidad_de_pagos).times do 
+      Movement.create operacion: self.copia.producto.nombre, tipo_operacion: "Venta", sale_id: self.id, monto_neto: 0.0
     end
   end
 
-  def self.acciones_venta_concretada_desde_pendiente sale, user
+  def acciones_venta_concretada_desde_pendiente
     #actualizo estado de la venta
-    sale.update(estado: "Concretada")
+    self.update(estado: "Concretada")
     #actualizo el estado de la copia
-    sale.copia.update(estado_del_producto: "Vendido")
+    self.copia.update(estado_del_producto: "Vendido")
 
     #crea un nuevo movimiento
-    Movement.create operacion: sale.copia.producto.nombre, tipo_operacion: "Venta", origen_id: sale.forma_de_pago_id, monto_neto: sale.precio_neto, fecha_operacion: DateTime.now, persona: user.nombre+' '+user.apellido, sale_id: sale.id    
+    Movement.create operacion: self.copia.producto.nombre, tipo_operacion: "Venta", origen_id: self.forma_de_pago_id, monto_neto: self.precio_neto, fecha_operacion: DateTime.now, persona: self.usuario.nombre+' '+self.usuario.apellido, sale_id: self.id    
     
     #actualizo la ganancia
-    ganancia = Sale.calcular_ganancia(sale)
-    sale.update(ganancia: ganancia)
+    ganancia = self.calcular_ganancia
+    self.update(ganancia: ganancia)
 
     #actualiza la caja con el dinero ingresado
-    sale.forma_de_pago.actualizar_caja(sale.precio_neto)
+    self.forma_de_pago.actualizar_caja(self.precio_neto)
   end
   
-  def self.acciones_venta_concretada_desde_pago_parcial sale, user
-    ganancia = Sale.calcular_ganancia(sale)
-    dinero_neto = sale.movements.inject(0){|total,m| total + m.monto_neto} #dinero sumado de las x formas de pago
-    dinero_bruto = sale.movements.inject(0){|total,m| total + m.monto_bruto} #dinero sumado de las x formas de pago
-    sale.update estado: "Concretada", usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: dinero_bruto
-    sale.copia.update estado_del_producto: "Vendido"
+  def acciones_venta_concretada_desde_pago_parcial user
+    ganancia = self.calcular_ganancia
+    dinero_neto = self.movements.inject(0){|total,m| total + m.monto_neto} #dinero sumado de las x formas de pago
+    dinero_bruto = self.movements.inject(0){|total,m| total + m.monto_bruto} #dinero sumado de las x formas de pago
+    self.update estado: "Concretada", usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: dinero_bruto
+    self.copia.update estado_del_producto: "Vendido"
     #actualizo las cajas en base a los movimientos de la venta
-    sale.movements.each do |m|
+    self.movements.each do |m|
       m.origen.actualizar_caja(m.monto_neto)
     end
   end
 
+=begin
   def self.verificar_cambio_de_estado estado_anterior, sale, user
     if estado_anterior == "Cancelada"
       if sale.estado == "Concretada"
@@ -146,14 +142,14 @@ class Sale < ActiveRecord::Base
       sale.movements.delete_all #elimino los movimientos
     end
   end
-
-  def self.revertir_finance sale
+=end
+  def revertir_finance 
     #descuenta de la CAJA correspondiente el valor sumado anteriormente
-    sale.movements.each do |m|
+    self.movements.each do |m|
       m.origen.actualizar_caja(m.monto_neto* -1)
     end
   end
-
+=begin
   def self.verificar_cambios sale, modified_sale, user
     #verifica si cambio el estado
     Sale.verificar_cambio_de_estado(sale.estado, modified_sale, user) if sale.estado != modified_sale.estado 
@@ -162,27 +158,27 @@ class Sale < ActiveRecord::Base
     
     #verifica si cambio el 
   end
-
-  def self.calcular_ganancia sale
+=end
+  def calcular_ganancia
     dolar = Option.instance.dolar_libre.to_f
-    dinero_acumulado =  sale.movements.inject(0) do |total,m|
+    dinero_acumulado =  self.movements.inject(0) do |total,m|
                            total + m.monto_neto
                         end
     precio_en_dolares = (dinero_acumulado / dolar)
-    return (precio_en_dolares - sale.copia.precio_compra.to_f)
+    return (precio_en_dolares - self.copia.precio_compra.to_f)
   end
 
-  def self.calcular_precio_neto sale
-    if (sale.origin_sale.tipo?) && (sale.forma_de_pago.tipo_mp?) #es Mercadolibre y Mercadopago
+  def calcular_precio_neto
+    if (self.origin_sale.tipo?) && (self.forma_de_pago.tipo_mp?) #es Mercadolibre y Mercadopago
       porcentaje_descuento = Option.instance.porcentaje_ml_mp
-    elsif (sale.origin_sale.tipo?) #es Solo Mercadolibre
+    elsif (self.origin_sale.tipo?) #es Solo Mercadolibre
       porcentaje_descuento = Option.instance.porcentaje_mercadolibre
-    elsif (sale.forma_de_pago.tipo_mp?) #es tipo Mercadopago
+    elsif (self.forma_de_pago.tipo_mp?) #es tipo Mercadopago
       porcentaje_descuento = Option.instance.porcentaje_mercadopago
     else #no es nada anterior
-      return sale.precio_bruto
+      return self.precio_bruto
     end
-    descuento = (porcentaje_descuento * sale.precio_bruto)/100
-    return (sale.precio_bruto - descuento) 
+    descuento = (porcentaje_descuento * self.precio_bruto)/100
+    return (self.precio_bruto - descuento) 
   end
 end

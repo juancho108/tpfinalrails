@@ -89,13 +89,14 @@
 </div>
 <script>
   $(function () {
+    $("#example2").DataTable();
     $('#example1').DataTable({
       "paging": false,
       "lengthChange": false,
       "searching": true,
       "ordering": true,
       "info": false,
-      "autoWidth": false
+      "autoWidth": false,
       "aaSorting": [[ 0, "desc" ]]
     });
   });

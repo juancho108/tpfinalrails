@@ -84,7 +84,7 @@ class OptionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_option
-      @option = Option.find(params[:id])
+      @option = Option.instance
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

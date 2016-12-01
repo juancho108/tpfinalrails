@@ -74,7 +74,6 @@ class CopiesController < ApplicationController
   end
 
   def sale
-    @sale = Sale.new
     #muestra form para crear la venta de una copia
   end
 

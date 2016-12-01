@@ -57,7 +57,7 @@
                 <td><%= copy.descripcion %></td>
                 <td>
                 <% if copy.estado_del_producto == "En Stock" %>
-                  <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/products/<%=@product.id%>/copies/<%=copy.id%>/sale" '>VENDER</button>
+                  <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/sales/new?copy=<%=copy.id%>" '>VENDER</button>
                 <%end%>
                 </td>
                 <td>

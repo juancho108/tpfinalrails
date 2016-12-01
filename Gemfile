@@ -53,6 +53,9 @@ gem 'will_paginate', '~> 3.1.0'
 #estilo para will_paginate bootstrap
 gem 'will_paginate-bootstrap'
 
+#singleton
+gem "acts_as_singleton"
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

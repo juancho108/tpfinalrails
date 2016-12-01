@@ -1,5 +1,6 @@
 class Option < ActiveRecord::Base
-include Singleton
+include ActiveRecord::Singleton
+
 #methods
 
 	def self.actualizar_valor_dolar
