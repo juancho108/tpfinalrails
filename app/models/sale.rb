@@ -1,5 +1,7 @@
 class Sale < ActiveRecord::Base
 
+  enum estado: [:concretada, :pendiente, :pago_parcial, :cancelada] 
+
   # associations
   belongs_to :copia, :class_name => 'Copy', :foreign_key => 'copy_id'
   belongs_to :cliente, :class_name => 'Client', :foreign_key => 'client_id'
@@ -15,19 +17,19 @@ class Sale < ActiveRecord::Base
   def verificar_estado 
 
     #verifica el estado de la nueva venta y toma las acciones correspondientes  
-    if self.estado == "Pendiente" 
+    if self.pendiente? 
       #realiza las acciones correspondientes para una venta pendiente
       self.acciones_venta_pendiente
-    elsif self.estado == "Concretada"
+    elsif self.concretada?
       #realiza las acciones correspondientes al concretar una venta
       self.acciones_venta_concretada
-    else #self.estado == "Pago Parcial"
+    else #self.ago_parcial?
       self.acciones_venta_pago_parcial
     end
   end
 
   def anular_venta
-    self.update estado: "Cancelada"
+    self.cancelada!
     self.copia.update estado_del_producto: "En Stock"
     self.origin_sale.actualizar_origen_de_la_venta((self.precio_bruto* -1), (self.precio_neto* -1))
     #verificar
@@ -89,7 +91,7 @@ class Sale < ActiveRecord::Base
 
   def acciones_venta_concretada_desde_pendiente
     #actualizo estado de la venta
-    self.update(estado: "Concretada")
+    self.concretada!
     #actualizo el estado de la copia
     self.copia.update(estado_del_producto: "Vendido")
 
@@ -108,7 +110,7 @@ class Sale < ActiveRecord::Base
     ganancia = self.calcular_ganancia
     dinero_neto = self.movements.inject(0){|total,m| total + m.monto_neto} #dinero sumado de las x formas de pago
     dinero_bruto = self.movements.inject(0){|total,m| total + m.monto_bruto} #dinero sumado de las x formas de pago
-    self.update estado: "Concretada", usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: dinero_bruto
+    self.update estado: 0, usuario: user, ganancia: ganancia, precio_neto: dinero_neto, precio_bruto: dinero_bruto
     self.copia.update estado_del_producto: "Vendido"
     #actualizo las cajas en base a los movimientos de la venta
     self.movements.each do |m|
@@ -181,4 +183,6 @@ class Sale < ActiveRecord::Base
     descuento = (porcentaje_descuento * self.precio_bruto)/100
     return (self.precio_bruto - descuento) 
   end
+
+
 end

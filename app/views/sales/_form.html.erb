@@ -9,11 +9,11 @@
       deshabilitarFormaDePago();
       deshabilitarPrecioBruto();
       deshabilitarPrecioML();
-      estado.value = "Pago Parcial"
+      estado.value = "2"
       estado[2].disabled = false
       //desactivo los estados restantes
       for (var i = 0; i < estado.length ; i++) {
-        if ((estado[i].value == "Concretada")||(estado[i].value == "Pendiente"))
+        if ((estado[i].value == "0")||(estado[i].value == "1"))
         {
           estado[i].disabled = true
         }
@@ -31,13 +31,13 @@
       habilitarPrecioBruto();
       habilitarPrecioML();
       for (var i = 0; i < estado.length ; i++) {
-        if ((estado[i].value == "Concretada")||(estado[i].value == "Pendiente"))
+        if ((estado[i].value == "0")||(estado[i].value == "1"))
         {
           estado[i].disabled = false
         }
       }
       estado[2].disabled = true
-      estado.value = "Concretada"
+      estado.value = "0"
       for (var i = 0; i < origenes_de_venta.length ; i++) {
         if (origenes_de_venta[i].text.includes("ML")){
          origenes_de_venta[i].disabled = false}
@@ -125,7 +125,7 @@
         </div>
         <div class="form-group">
           <label>Estado de la venta:</label>
-          <%= f.select :estado, ['Concretada', 'Pendiente', 'Pago Parcial'], {}, class: "form-control select2 select2-hidden-accessible", id: 'estado' %>
+          <%= f.select :estado, [['Concretada',0], ['Pendiente',1], ['Pago Parcial',2]], {}, class: "form-control select2 select2-hidden-accessible", id: 'estado' %>
 
         </div>
         <div class="box box-primary">

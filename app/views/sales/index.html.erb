@@ -55,9 +55,9 @@
                   <% end %>
                 <td><%= sale.usuario.nombre rescue '' %></td>
                 <td><%= sale.estado %>
-                    <%if sale.estado == "Pago Parcial"%>
+                    <%if sale.pago_parcial? %>
                       <button class="btn btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/movements" '>Ver Pagos</button>
-                    <%elsif sale.estado == "Pendiente" %>
+                    <%elsif sale.pendiente? %>
                     <button class="btn btn-block btn-success btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/confirm_sale" '>VENDER</button>
                     <button class="btn btn-block btn-danger btn-xs" type="button" onclick='location.href="/sales/<%=sale.id%>/cancel_sale" '>CANCELAR</button>
                     <%end%>
@@ -71,7 +71,7 @@
                       <i class="fa fa-edit"></i>
                     <%end%>
                   <% end %>
-                  <% if sale.estado == "Concretada" %>
+                  <% if sale.estado == "concretada" %>
                     <%= link_to sale, method: :get, class: 'btn btn-primary', title: 'Ver' do %>
                       <i class="fa fa-file"></i>
                     <% end %>

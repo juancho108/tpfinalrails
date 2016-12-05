@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808160709) do
+ActiveRecord::Schema.define(version: 20161205203344) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "nombre"
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 20160808160709) do
     t.integer  "client_id"
     t.integer  "origin_sale_id"
     t.integer  "finance_id"
-    t.string   "estado"
+    t.integer  "estado"
     t.integer  "forma_de_pago_id"
     t.integer  "usuario_id"
     t.integer  "cantidad_de_pagos", default: 1

@@ -12,7 +12,7 @@ class SalesController < ApplicationController
   # GET /sales/1
   # GET /sales/1.json
   def show
-    if @sale.estado != "Concretada"
+    unless @sale.concretada?
       redirect_to sales_path, alert: 'La Venta no ha sido concretada, esta accion no puede realizarse.' 
     end
   end
@@ -32,9 +32,9 @@ class SalesController < ApplicationController
   # POST /sales
   # POST /sales.json
   def create
-    
+
     @client = Client.create(client_params)
-    @sale = Sale.new(sale_params.merge(usuario: current_user, cliente: @client, copy_id: params[:copy_id]))
+    @sale = Sale.new(sale_params.merge(usuario: current_user, cliente: @client, copy_id: params[:copy_id], estado: sale_params[:estado].to_i))
 
     respond_to do |format|
       if @sale.save
@@ -51,7 +51,7 @@ class SalesController < ApplicationController
   # PATCH/PUT /sales/1
   # PATCH/PUT /sales/1.json
   def update
-
+    # no se puede actualizar una venta por el momento
     respond_to do |format|
 
       previous_sale = @sale
@@ -121,7 +121,7 @@ class SalesController < ApplicationController
   def movements
 
     @show_close_sale_button = @sale.movements.where('monto_neto > 0').count == @sale.movements.count
-    if @sale.estado != "Pago Parcial"
+    if @sale.pago_arcial?
       respond_to do |format|
       format.html { redirect_to sales_url, alert: 'La Venta no posee pagos paciales.' }
       end
