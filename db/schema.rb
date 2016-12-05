@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20161205203344) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.integer  "role",                   default: 0
-    t.datetime "last_sign_out_at",       default: '2016-10-26 22:38:14'
+    t.datetime "last_sign_out_at",       default: '2016-12-05 21:53:57'
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

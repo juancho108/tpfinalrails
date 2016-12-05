@@ -12,7 +12,7 @@ User.create(email: "dariogabalec@gmail.com ", password:"publicador1", password_c
 User.create(email: "marianofrias@gmail.com ", password:"vendedor1", password_confirmation: "vendedor1", role: 0, nombre: "Mariano", apellido: "Frias")
 
 #Opciones
-Option.create(skin: "blue", dolar_libre: 15.38 , dolar_blue: 15.55 , porcentaje_mercadolibre: 10, porcentaje_mercadopago: 10, porcentaje_ml_mp: 8.9 )
+Option.instance.update(skin: "blue", dolar_libre: 15.38 , dolar_blue: 15.55 , porcentaje_mercadolibre: 10, porcentaje_mercadopago: 10, porcentaje_ml_mp: 8.9 )
 
 #Categorias
 Category.create(nombre: "Tablets")
